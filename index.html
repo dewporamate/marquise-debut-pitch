@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MARQUISE DEBUT LIVE STREAM — YUPP!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Splitting.js char animation CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css"/>
+  <style>
+    /* Splitting.js char overrides */
+    .word { display: inline-block; overflow: hidden; }
+    .char { display: inline-block; }
+  </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+    :root {
+      --black: #0d0d0d;
+      --cyan: #5CE1E6;
+      --cyan-dim: rgba(92,225,230,0.15);
+      --cyan-border: rgba(92,225,230,0.35);
+      --silver: #c0c0c0;
+      --metal: #6a6a6a;
+      --accent: #e8e8e8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--black);
+      color: var(--accent);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* GRAIN OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    .mono { font-family: 'Space Mono', monospace; }
+
+    /* GLITCH EFFECT */
+    @keyframes glitch {
+      0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+      10% { clip-path: inset(10% 0 60% 0); transform: translate(-3px, 1px); }
+      20% { clip-path: inset(40% 0 30% 0); transform: translate(3px, -1px); }
+      30% { clip-path: inset(70% 0 5% 0); transform: translate(-2px, 2px); }
+      40% { clip-path: inset(20% 0 70% 0); transform: translate(2px, -2px); }
+      50% { clip-path: inset(50% 0 40% 0); transform: translate(-1px, 1px); }
+      60% { clip-path: inset(80% 0 10% 0); transform: translate(3px, 0); }
+      70% { clip-path: inset(30% 0 55% 0); transform: translate(-3px, -1px); }
+      80% { clip-path: inset(5% 0 85% 0); transform: translate(1px, 2px); }
+      90% { clip-path: inset(65% 0 20% 0); transform: translate(-2px, -2px); }
+    }
+
+    .glitch-text { position: relative; }
+    .glitch-text::before,
+    .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+    }
+    .glitch-text::before {
+      color: rgba(92,225,230,0.35);
+      animation: glitch 4s infinite;
+    }
+    .glitch-text::after {
+      color: rgba(255,50,80,0.2);
+      animation: glitch 4s infinite 0.3s;
+    }
+
+    /* SCANLINE */
+    @keyframes scan {
+      0% { top: -10%; }
+      100% { top: 110%; }
+    }
+    .scanline {
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(92,225,230,0.12), transparent);
+      animation: scan 6s linear infinite;
+      pointer-events: none;
+    }
+
+    /* BORDERS */
+    .metal-border {
+      border: 1px solid rgba(92,225,230,0.18);
+    }
+    .metal-border-bright {
+      border: 1px solid rgba(92,225,230,0.45);
+    }
+
+    /* CYAN GRADIENT TEXT — used on hero title */
+    .text-metal {
+      background: linear-gradient(135deg, #5CE1E6 0%, #a8f0f3 40%, #5CE1E6 70%, #3bbfc4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--metal);
+      text-transform: uppercase;
+    }
+
+    /* CARD */
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .card:hover {
+      border-color: rgba(92,225,230,0.25);
+      background: rgba(92,225,230,0.03);
+    }
+
+    /* OPTION CARD */
+    .option-1 {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .option-2 {
+      background: rgba(92,225,230,0.05);
+      border: 1px solid rgba(92,225,230,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .option-2::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #5CE1E6, transparent);
+    }
+
+    /* BADGE */
+    .badge-recommended {
+      background: linear-gradient(135deg, rgba(92,225,230,0.2), rgba(92,225,230,0.05));
+      border: 1px solid rgba(92,225,230,0.55);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: #5CE1E6;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* SPEC ROW */
+    .spec-row {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      align-items: flex-start;
+    }
+    .spec-row:last-child { border-bottom: none; }
+    .spec-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(92,225,230,0.2), transparent);
+    }
+
+    /* NUMBER LARGE */
+    .stat-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #5CE1E6 0%, #a8f0f3 50%, #5CE1E6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    /* fade-up: initial hidden state — GSAP animates in */
+    .fade-up { opacity: 0; }
+
+    /* CCTV DOT */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+    .blink { animation: blink 1.2s ease infinite; }
+
+    /* TAG */
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      background: rgba(92,225,230,0.07);
+      border: 1px solid rgba(92,225,230,0.22);
+      padding: 0.2rem 0.5rem;
+      text-transform: uppercase;
+      color: #5CE1E6;
+    }
+
+    /* COMPARE TABLE */
+    .compare-th {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--metal);
+    }
+    .compare-td {
+      font-size: 0.875rem;
+      padding: 0.65rem 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      color: #d4d4d4;
+    }
+    .compare-td.highlight {
+      color: #ffffff;
+      font-weight: 500;
+    }
+    .compare-row:hover .compare-td { background: rgba(255,255,255,0.02); }
+
+    /* ADDON CARD */
+    .addon-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.3s;
+    }
+    .addon-card:hover {
+      background: rgba(92,225,230,0.04);
+      border-color: rgba(92,225,230,0.28);
+      transform: translateY(-2px);
+    }
+
+    /* HERO BG */
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 0%, rgba(92,225,230,0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 15% 90%, rgba(92,225,230,0.04) 0%, transparent 55%),
+        #0d0d0d;
+    }
+
+    /* PROGRESS BAR */
+    .progress-bar {
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, rgba(92,225,230,0.5), #5CE1E6);
+      border-radius: 9999px;
+    }
+
+    /* FOOTER GLOW */
+    .footer-glow {
+      background: radial-gradient(ellipse 60% 70% at 50% 100%, rgba(92,225,230,0.07) 0%, transparent 60%);
+    }
+
+    /* CYAN GLOW — for option-2 nodes */
+    .cyan-glow {
+      box-shadow: 0 0 14px rgba(92,225,230,0.55);
+    }
+
+    /* SELECT SOLUTION BUTTONS */
+    .btn-select {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      outline: none;
+    }
+    .btn-select-1 {
+      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #d4d4d4;
+    }
+    .btn-select-1:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.08) 100%);
+      border-color: rgba(255,255,255,0.35);
+      color: #fff;
+      box-shadow: 0 0 18px rgba(255,255,255,0.06);
+      transform: translateY(-1px);
+    }
+    .btn-select-2 {
+      background: linear-gradient(135deg, rgba(92,225,230,0.25) 0%, rgba(92,225,230,0.08) 60%, rgba(59,191,196,0.2) 100%);
+      border: 1px solid rgba(92,225,230,0.55);
+      color: #5CE1E6;
+    }
+    .btn-select-2:hover {
+      background: linear-gradient(135deg, rgba(92,225,230,0.38) 0%, rgba(92,225,230,0.18) 60%, rgba(59,191,196,0.32) 100%);
+      border-color: rgba(92,225,230,0.9);
+      color: #fff;
+      box-shadow: 0 0 24px rgba(92,225,230,0.35), 0 0 48px rgba(92,225,230,0.12);
+      transform: translateY(-1px);
+    }
+
+    /* INLINE ADVANTAGE BADGE */
+    .badge-advantage {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: rgba(92,225,230,0.1);
+      border: 1px solid rgba(92,225,230,0.4);
+      color: #5CE1E6;
+      padding: 0.15rem 0.45rem;
+      border-radius: 0.25rem;
+      vertical-align: middle;
+      margin-left: 0.4rem;
+    }
+
+    /* COMPARE TABLE COLUMN CONTRAST */
+    .compare-col-1 {
+      background: rgba(255,255,255,0.02);
+    }
+    .compare-col-2 {
+      background: rgba(92,225,230,0.04);
+    }
+    .compare-row:hover .compare-col-1 { background: rgba(255,255,255,0.04); }
+    .compare-row:hover .compare-col-2 { background: rgba(92,225,230,0.08); }
+    .compare-th-1 {
+      background: rgba(255,255,255,0.03);
+    }
+    .compare-th-2 {
+      background: rgba(92,225,230,0.06);
+      border-top: 2px solid rgba(92,225,230,0.5);
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ═══════════════════════════════════════════
+       HERO SECTION
+  ══════════════════════════════════════════════ -->
+  <section class="hero-bg relative min-h-screen flex flex-col justify-center items-center text-center px-6 py-24 overflow-hidden">
+    <!-- Scanline -->
+    <div class="scanline"></div>
+
+    <!-- CCTV / Recording indicator -->
+    <div class="absolute top-8 left-8 flex items-center gap-2" id="hero-rec">
+      <div class="w-2 h-2 rounded-full bg-red-500 blink"></div>
+      <span id="typed-rec" class="mono text-xs text-metal tracking-widest"></span>
+    </div>
+
+    <!-- Top right date -->
+    <div class="absolute top-8 right-8 mono text-xs text-metal tracking-wider" id="hero-date">
+      2026 / DEBUT
+    </div>
+
+    <!-- Label Line -->
+    <div id="hero-label" class="section-label mb-6 tracking-widest fade-up">YUPP! × MARQUISE — LIVE PRODUCTION PROPOSAL</div>
+
+    <!-- MAIN TITLE -->
+    <h1
+      id="hero-title"
+      class="glitch-text text-metal mono font-bold leading-none mb-6 fade-up"
+      data-text="MARQUISE"
+      style="font-size: clamp(3.5rem, 12vw, 9rem); letter-spacing:-0.02em;"
+    >
+      MARQUISE
+    </h1>
+    <div
+      id="hero-subtitle-wrap"
+      class="mono font-bold text-metal mb-4 fade-up tracking-widest"
+      style="font-size: clamp(1rem, 3vw, 1.75rem); letter-spacing: 0.3em;"
+    >
+      DEBUT LIVE STREAM
+    </div>
+
+    <!-- Divider line -->
+    <div id="hero-divider" class="w-24 divider my-6 fade-up"></div>
+
+    <!-- Hook Line -->
+    <p
+      id="hero-hook"
+      class="max-w-2xl fade-up"
+      style="font-size: clamp(1rem, 2.5vw, 1.3rem); line-height: 1.6; color: #aaa;"
+    >
+      เธอไม่ได้มาเพื่อหยิบมงกุฎ —<br/>
+      <span class="text-white font-semibold">เธอมาเพื่อพิสูจน์ว่าตัวเองคือเวอร์ชันที่ดีที่สุดของตัวเอง</span>
+    </p>
+
+    <!-- Sub hook EN -->
+    <p id="hero-quote" class="mono text-xs text-metal mt-3 tracking-wider fade-up">
+      "TO BE THE GIRL I WISH I SAW GROWING UP"
+    </p>
+
+    <!-- Tags -->
+    <div id="hero-tags" class="flex flex-wrap justify-center gap-2 mt-8 fade-up">
+      <span class="tag">YUPP! Studio</span>
+      <span class="tag">YouTube Live</span>
+      <span class="tag">3-Camera</span>
+      <span class="tag">Interactive Comments</span>
+      <span class="tag">ISO Recording</span>
+      <span class="tag">Acoustic Ready</span>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-40">
+      <span class="mono text-xs tracking-widest text-metal">SCROLL</span>
+      <div class="w-px h-8 bg-gradient-to-b from-metal to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PROJECT OVERVIEW
+  ══════════════════════════════════════════════ -->
+  <section class="py-24 px-6 max-w-6xl mx-auto">
+    <div class="section-label split-label mb-3">01 — Project Overview</div>
+    <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">The World of MARQUISE</h2>
+    <div class="divider w-16 my-6"></div>
+
+    <!-- Artist Vision Statement -->
+    <div class="metal-border-bright rounded-2xl p-8 mb-12 option-2">
+      <div class="section-label mb-4">ARTIST VISION</div>
+      <blockquote class="text-xl md:text-2xl font-medium text-white leading-relaxed mb-4" style="letter-spacing:-0.01em;">
+        "A Disguised Rebel who overcomes the hardship of growing up,<br class="hidden md:block"/>
+        to become the girl she wished she saw."
+      </blockquote>
+      <p class="text-metal text-sm mono tracking-wider">— MARQUISE'S WORLD BUILDING, YUPP! A&R DEPT.</p>
+    </div>
+
+    <!-- 3-column Overview Grid -->
+    <div class="gsap-stagger grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <div class="card rounded-xl p-6">
+        <div class="section-label mb-3">THE STORY</div>
+        <h3 class="text-lg font-semibold text-white mb-2">"Overcoming A Monster"</h3>
+        <p class="text-metal text-sm leading-relaxed">
+          เรื่องราวของเด็กสาวที่ต้องเผชิญกับ 4 มอนสเตอร์: วงการ, สื่อ, ความเกลียดชัง
+          และ <span style="color:#5CE1E6;">ความกลัวในตัวเอง</span> — สู่การเป็นเวอร์ชันที่ดีที่สุดของตัวเอง
+        </p>
+      </div>
+      <div class="card rounded-xl p-6">
+        <div class="section-label mb-3">THE AESTHETIC</div>
+        <h3 class="text-lg font-semibold text-white mb-2">Perfectly Messy & Quiet Luxury</h3>
+        <p class="text-metal text-sm leading-relaxed">
+          Grunge Rebellion + Y2K Nostalgia · Raw, Glitchy, Grainy Visuals
+          · Black / Silver / Metallic · <span style="color:#5CE1E6;">"Less is More"</span>
+          — Raw but expensive taste
+        </p>
+      </div>
+      <div class="card rounded-xl p-6">
+        <div class="section-label mb-3">THE AUDIENCE</div>
+        <h3 class="text-lg font-semibold text-white mb-2">Ages 15–24 · Global</h3>
+        <p class="text-metal text-sm leading-relaxed">
+          High School / University · International fans & Thai ที่เข้าใจภาษาอังกฤษ
+          · คนที่อยาก <span style="color:#5CE1E6;">โตไปพร้อมกับศิลปิน</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Roadmap Timeline Strip -->
+    <div class="section-label mb-4">2026 DEBUT ROADMAP</div>
+    <div class="overflow-x-auto pb-4">
+      <div class="flex gap-0 min-w-max">
+        <!-- Timeline items -->
+        <div class="flex flex-col items-center" style="min-width:140px;">
+          <div class="w-3 h-3 rounded-full bg-white border-2 border-metal z-10"></div>
+          <div class="w-px h-8 bg-metal opacity-30"></div>
+          <div class="card rounded-lg p-3 text-center w-32">
+            <div class="mono text-xs text-metal mb-1">Q1 2026</div>
+            <div class="text-xs font-semibold text-white">Making Songs</div>
+            <div class="mono text-xs text-metal mt-1">QTY: 5 Tracks</div>
+          </div>
+        </div>
+        <div class="flex items-start pt-1.5" style="min-width:32px;">
+          <div class="w-8 h-px bg-metal opacity-30 mt-1.5"></div>
+        </div>
+        <div class="flex flex-col items-center" style="min-width:140px;">
+          <div class="w-3 h-3 rounded-full bg-white border-2 border-metal z-10"></div>
+          <div class="w-px h-8 bg-metal opacity-30"></div>
+          <div class="card rounded-lg p-3 text-center w-32">
+            <div class="mono text-xs text-metal mb-1">ARTIST DEBUT</div>
+            <div class="text-xs font-semibold text-white">Press Conference</div>
+            <div class="mono text-xs text-metal mt-1">Official Launch</div>
+          </div>
+        </div>
+        <div class="flex items-start pt-1.5" style="min-width:32px;">
+          <div class="w-8 h-px bg-metal opacity-30 mt-1.5"></div>
+        </div>
+        <div class="flex flex-col items-center" style="min-width:140px;">
+          <div class="w-3 h-3 rounded-full z-10 cyan-glow" style="background:#5CE1E6; border:2px solid #5CE1E6;"></div>
+          <div class="w-px h-8" style="background:rgba(92,225,230,0.45)"></div>
+          <div class="option-2 rounded-lg p-3 text-center w-32">
+            <div class="mono text-xs mb-1" style="color:#5CE1E6;">★ DEBUT LIVE</div>
+            <div class="text-xs font-bold text-white">LIVE STREAM</div>
+            <div class="mono text-xs mt-1" style="color:#5CE1E6;">THIS PROJECT</div>
+          </div>
+        </div>
+        <div class="flex items-start pt-1.5" style="min-width:32px;">
+          <div class="w-8 h-px bg-metal opacity-30 mt-1.5"></div>
+        </div>
+        <div class="flex flex-col items-center" style="min-width:140px;">
+          <div class="w-3 h-3 rounded-full bg-metal border-2 border-metal opacity-50 z-10"></div>
+          <div class="w-px h-8 bg-metal opacity-30"></div>
+          <div class="card rounded-lg p-3 text-center w-32 opacity-60">
+            <div class="mono text-xs text-metal mb-1">1ST SGL</div>
+            <div class="text-xs font-semibold text-white">"dontneedyouanymore"</div>
+            <div class="mono text-xs text-metal mt-1">Release</div>
+          </div>
+        </div>
+        <div class="flex items-start pt-1.5" style="min-width:32px;">
+          <div class="w-8 h-px bg-metal opacity-20 mt-1.5"></div>
+        </div>
+        <div class="flex flex-col items-center" style="min-width:140px;">
+          <div class="w-3 h-3 rounded-full bg-metal border-2 border-metal opacity-30 z-10"></div>
+          <div class="w-px h-8 bg-metal opacity-20"></div>
+          <div class="card rounded-lg p-3 text-center w-32 opacity-40">
+            <div class="mono text-xs text-metal mb-1">2ND SGL</div>
+            <div class="text-xs font-semibold text-white">"IRONIC"</div>
+            <div class="mono text-xs text-metal mt-1">+ Remix</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Event Specs strip -->
+    <div class="gsap-stagger grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
+      <div class="card rounded-xl p-5 text-center">
+        <div class="stat-number" id="stat-cameras">0</div>
+        <div class="mono text-xs text-metal mt-1 tracking-wider">CAMERAS</div>
+      </div>
+      <div class="card rounded-xl p-5 text-center">
+        <div class="stat-number" id="stat-format">16:9</div>
+        <div class="mono text-xs text-metal mt-1 tracking-wider">PRIMARY FORMAT</div>
+      </div>
+      <div class="card rounded-xl p-5 text-center">
+        <div class="stat-number" id="stat-platforms">0x</div>
+        <div class="mono text-xs text-metal mt-1 tracking-wider">PLATFORM BROADCAST</div>
+      </div>
+      <div class="card rounded-xl p-5 text-center">
+        <div class="stat-number" id="stat-iso">ISO</div>
+        <div class="mono text-xs text-metal mt-1 tracking-wider">RECORDING / CAMERA</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider max-w-6xl mx-auto px-6"></div>
+
+  <!-- ═══════════════════════════════════════════
+       MARKET PROOF
+  ══════════════════════════════════════════════ -->
+  <section class="py-24 px-6 max-w-6xl mx-auto">
+    <div class="section-label split-label mb-3">02 — Market Proof & Inspiration</div>
+    <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">แฟนคลับคาดหวังอะไร</h2>
+    <p class="text-metal text-sm mb-8">จากการวิเคราะห์ Live References ของ KATSEYE & YUPP! Trainee Debut</p>
+    <div class="divider w-16 mb-12"></div>
+
+    <div class="gsap-stagger grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      <!-- KATSEYE Reference -->
+      <div class="card rounded-2xl overflow-hidden">
+        <div class="p-6 border-b border-white/10">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <div class="section-label mb-1">REFERENCE 01</div>
+              <h3 class="text-xl font-bold text-white">KATSEYE — 1st Anniversary Live VOD</h3>
+            </div>
+            <div class="tag shrink-0 ml-4">HYBE × GEFFEN</div>
+          </div>
+          <p class="text-metal text-sm leading-relaxed">
+            Live ฉลองครบรอบ 1 ปีของ KATSEYE บน YouTube — รูปแบบ Sit-Down Interview
+            ผสม Interactive Games เป็นต้นแบบของ "ความเชื่อมต่อที่แท้จริง" กับแฟนคลับ
+          </p>
+        </div>
+        <div class="p-6">
+          <div class="section-label mb-3">KEY LEARNINGS</div>
+          <ul class="space-y-3">
+            <li class="spec-row">
+              <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <div class="text-sm font-medium text-white">Real-Time Comment Interaction</div>
+                <div class="text-xs text-metal mt-0.5">แฟนคลับรู้สึกเป็นส่วนหนึ่งของงานผ่านการอ่าน Comment ออกอากาศแบบ Real-Time</div>
+              </div>
+            </li>
+            <li class="spec-row">
+              <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <div class="text-sm font-medium text-white">Authentic Unscripted Moments</div>
+                <div class="text-xs text-metal mt-0.5">ช่วงที่ไม่ได้เตรียมสคริปต์ (Trivia, Games, Letter Reading) สร้าง Engagement สูงสุด</div>
+              </div>
+            </li>
+            <li class="spec-row">
+              <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <div class="text-sm font-medium text-white">Multi-Camera Coverage</div>
+                <div class="text-xs text-metal mt-0.5">การตัดสลับกล้องที่ลื่นไหลทำให้รู้สึกเหมือนนั่งอยู่ในสตูดิโอ ไม่ใช่แค่ดูจอ</div>
+              </div>
+            </li>
+            <li class="spec-row">
+              <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <div class="text-sm font-medium text-white">Milestone Storytelling</div>
+                <div class="text-xs text-metal mt-0.5">แฟนคลับต้องการ "เป็นพยาน" ให้กับช่วงเวลาสำคัญ — ยิ่งเป็นครั้งแรก ยิ่งต้อง Perfect</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- YUPP! Trainee Reference -->
+      <div class="card rounded-2xl overflow-hidden">
+        <div class="p-6 border-b border-white/10">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <div class="section-label mb-1">REFERENCE 02</div>
+              <h3 class="text-xl font-bold text-white">What's YUPP! EP.29 — Trainee Debut Live</h3>
+            </div>
+            <div class="tag shrink-0 ml-4">YUPP! Original</div>
+          </div>
+          <p class="text-metal text-sm leading-relaxed">
+            Live การเปิดตัว Trainee YUPP! ครั้งแรก — รูปแบบ Sit-Down Reveal ในสตูดิโอ YUPP!
+            เป็น Blueprint สำหรับ MARQUISE โดยตรง
+          </p>
+        </div>
+        <div class="p-6">
+          <div class="section-label mb-3">KEY LEARNINGS</div>
+          <ul class="space-y-3">
+            <li class="spec-row">
+              <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <div class="text-sm font-medium text-white">Debut Live = ความทรงจำแรก</div>
+                <div class="text-xs text-metal mt-0.5">คนดู 200+ เข้าร่วมตั้งแต่นาทีแรก — ทุกคนรู้ว่านี่คือ "ช่วงเวลาที่ย้อนกลับมาไม่ได้"</div>
+              </div>
+            </li>
+            <li class="spec-row">
+              <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <div class="text-sm font-medium text-white">Studio Size ≠ Production Quality</div>
+                <div class="text-xs text-metal mt-0.5">สตูดิโอเล็กของ YUPP! สร้าง Debut Live ที่ดูดีได้ด้วยการจัดกล้อง + แสงที่ถูกต้อง</div>
+              </div>
+            </li>
+            <li class="spec-row">
+              <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <div class="text-sm font-medium text-white">Comment = Live Energy</div>
+                <div class="text-xs text-metal mt-0.5">Host อ่าน Comment จากผู้ชมตลอดรายการ — ช่วยให้บรรยากาศในสตูดิโอไม่เงียบ</div>
+              </div>
+            </li>
+            <li class="spec-row">
+              <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <div class="text-sm font-medium text-white">แฟนไทย + อินเตอร์ พร้อมเชียร์</div>
+                <div class="text-xs text-metal mt-0.5">ฐานแฟน YUPP! พร้อมจะ "เกาะขอบจอ" ตั้งแต่ Live แรก — Moment นี้ต้องไม่พลาด</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Insight Banner -->
+    <div class="option-2 rounded-2xl p-8 text-center">
+      <div class="section-label mb-3" style="color:#5CE1E6; opacity:0.7;">CORE INSIGHT FROM BOTH REFERENCES</div>
+      <p class="text-xl md:text-2xl font-semibold text-white leading-relaxed max-w-3xl mx-auto">
+        แฟนคลับไม่ได้ดูแค่ "ศิลปิน" — พวกเขามาเพื่อ
+        <span style="color:#5CE1E6;"> "เป็นส่วนหนึ่ง" ของช่วงเวลาประวัติศาสตร์</span>
+      </p>
+      <p class="text-sm mt-4 mono tracking-wider" style="color:#5CE1E6; opacity:0.6;">
+        TECHNICAL QUALITY = RESPECT FOR THAT MOMENT
+      </p>
+    </div>
+  </section>
+
+  <div class="divider max-w-6xl mx-auto px-6"></div>
+
+  <!-- ═══════════════════════════════════════════
+       TECHNICAL SOLUTIONS
+  ══════════════════════════════════════════════ -->
+  <section class="py-24 px-6 max-w-6xl mx-auto">
+    <div class="section-label split-label mb-3">03 — Technical Solutions</div>
+    <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">เลือก Package ที่ใช่</h2>
+    <div class="divider w-16 my-6"></div>
+
+    <!-- Network Context -->
+    <div class="card rounded-xl p-5 mb-10 flex gap-4 items-start">
+      <div class="mt-0.5 shrink-0" style="color:#5CE1E6;">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z"/></svg>
+      </div>
+      <div>
+        <div class="text-sm font-semibold text-white mb-1">Network Assessment: สตูดิโอ YUPP!</div>
+        <p class="text-metal text-xs leading-relaxed">
+          Upload Speed (Wi-Fi): <span class="text-white font-mono">372.53 Mbps</span> ·
+          Requirement สำหรับ 1080p 60fps → 3 Platforms: <span class="text-white font-mono">~30 Mbps</span> ·
+          <span style="color:#5CE1E6;">ความเร็วเกินพอ</span> — สิ่งที่ต้องระวังคือ <span class="text-white">Stability</span> หากระบบตึกมีปัญหา
+        </p>
+      </div>
+    </div>
+
+    <!-- Option Cards -->
+    <div class="gsap-stagger grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+
+      <!-- Option 1 -->
+      <div class="option-1 rounded-2xl p-8 flex flex-col">
+        <div class="flex items-start justify-between mb-6">
+          <div>
+            <div class="section-label mb-2">OPTION 01</div>
+            <h3 class="text-2xl font-bold text-white" style="letter-spacing:-0.01em;">Compact Broadcast</h3>
+            <p class="text-metal text-sm mt-1">คล่องตัว · คุ้มค่า · ประหยัดพื้นที่</p>
+          </div>
+          <div class="mono text-xs text-metal text-right pt-1">
+            Base<br/>System
+          </div>
+        </div>
+
+        <div class="progress-bar rounded-full mb-6">
+          <div class="progress-fill" style="width:65%"></div>
+        </div>
+
+        <div class="space-y-0 flex-1">
+          <div class="spec-row">
+            <svg class="spec-icon text-metal shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Camera</div>
+              <div class="text-xs text-metal mt-0.5">Sony FX30 / A7IV × 3 (Mirrorless) · เลนส์ซูม 1 + เลนส์ฟิกซ์ 2</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon text-metal shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Switcher & Recording</div>
+              <div class="text-xs text-metal mt-0.5"><span style="color:#5CE1E6;">Blackmagic ATEM Mini Pro ISO</span> · อัด ISO 3 กล้อง + สร้าง DaVinci Resolve Project ทันที</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon text-metal shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Stream & Graphics</div>
+              <div class="text-xs text-metal mt-0.5"><span style="color:#5CE1E6;">OBS Studio</span> + <span style="color:#5CE1E6;">H2R Graphics</span> · ดึง Comment ขึ้นเป็น Pop-up</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon text-metal shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Audio</div>
+              <div class="text-xs text-metal mt-0.5">Wireless Lav 32-bit float × 2 + Zoom L-8 Digital Mixer</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon text-metal shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Network</div>
+              <div class="text-xs text-metal mt-0.5">LAN สตูดิโอ (Direct) · ไม่มี Redundancy</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pros/Cons -->
+        <div class="mt-6 pt-6 border-t border-white/10">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <div class="mono text-xs text-metal mb-2 tracking-wider">STRENGTHS</div>
+              <ul class="space-y-1">
+                <li class="text-xs text-silver flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Compact & Portable</li>
+                <li class="text-xs text-silver flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Cost-Effective</li>
+                <li class="text-xs text-silver flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Quick Setup</li>
+              </ul>
+            </div>
+            <div>
+              <div class="mono text-xs text-metal mb-2 tracking-wider">CONSIDERATIONS</div>
+              <ul class="space-y-1">
+                <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Single LAN เสี่ยง Drop</li>
+                <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>APS-C Sensor</li>
+                <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Graphics ปรับแต่งได้จำกัด</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-white/10">
+          <button class="btn-select btn-select-1 w-full">Select This Solution</button>
+        </div>
+      </div>
+
+      <!-- Option 2 -->
+      <div class="option-2 rounded-2xl p-8 flex flex-col">
+        <div class="flex items-start justify-between mb-6">
+          <div>
+            <div class="mono mb-2" style="font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; color:#5CE1E6; opacity:0.8;">OPTION 02</div>
+            <h3 class="text-2xl font-bold text-white" style="letter-spacing:-0.01em;">Premium + 5G Bonding</h3>
+            <p class="text-sm mt-1" style="color:rgba(92,225,230,0.65);">เสถียรสูงสุด · กราฟิกซับซ้อน · ระดับ Broadcast</p>
+          </div>
+          <div class="badge-recommended">★ Recommended</div>
+        </div>
+
+        <div class="progress-bar rounded-full mb-6">
+          <div class="progress-fill" style="width:95%"></div>
+        </div>
+
+        <div class="space-y-0 flex-1">
+          <div class="spec-row">
+            <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Camera</div>
+              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">Sony ZV-E1 + เลนส์ 24-70mm × 3</span> · Full Frame Sensor · Bokeh ลึก · สตูดิโอเล็กดู Premium</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Switcher & Recording <span class="badge-advantage">✦ No Overheat Risk</span></div>
+              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">PC Workstation + vMix Pro</span> · ISO Recording ProRes/H.264 · ตัดสลับกราฟิกลื่นไหล</div>
+              <div class="text-xs mt-1" style="color:rgba(92,225,230,0.45);">ATEM Mini Pro ISO รับภาระ Recording แยกออกจากกล้อง — กล้องไม่ร้อนระหว่างไลฟ์ยาว</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Stream & Graphics</div>
+              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">vMix Social</span> · ดึง Comment Native · ปรับแต่ง Animation ให้ตรง Aesthetic ของ MARQUISE 100%</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Audio</div>
+              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">DJI Mic 2</span> (Wireless Lavalier) × 2 + 32-bit Float Internal Backup Recording · Shotgun Mic สำรอง/Ambient</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Network — 5G Bonding <span class="badge-advantage">✦ Redundancy</span></div>
+              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">LiveU Solo หรือ Peplink</span> · รวม LAN + ซิม 5G · หากเน็ตตึกหลุด → สลับ 5G ทันที ไลฟ์ไม่กระตุก</div>
+              <div class="text-xs mt-1" style="color:rgba(92,225,230,0.45);">Redundancy Connection — ไม่มีจุดเดียวที่ล้มเหลวได้ แม้ LAN สตูดิโอขาด ไลฟ์ยังคงต่อเนื่อง</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-6 border-t border-white/10">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <div class="mono text-xs mb-2 tracking-wider" style="color:rgba(92,225,230,0.6);">STRENGTHS</div>
+              <ul class="space-y-1">
+                <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>เสถียร 100% Redundant</li>
+                <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Full Frame Cinematic Look</li>
+                <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Graphics ตรง Brand Aesthetic</li>
+                <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Broadcast-Grade Audio</li>
+              </ul>
+            </div>
+            <div>
+              <div class="mono text-xs mb-2 tracking-wider" style="color:rgba(92,225,230,0.6);">CONSIDERATIONS</div>
+              <ul class="space-y-1">
+                <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Budget สูงกว่า Option 1</li>
+                <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Setup Time นานกว่า</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-white/10">
+          <button class="btn-select btn-select-2 w-full">Select This Solution</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="card rounded-2xl overflow-hidden">
+      <div class="p-6 border-b border-white/10 flex items-center justify-between">
+        <div class="section-label">HEAD-TO-HEAD COMPARISON</div>
+        <div class="flex gap-3">
+          <div class="mono text-xs" style="color:rgba(255,255,255,0.3); font-size:0.6rem; letter-spacing:0.15em;">OPT 1 · BASE</div>
+          <div class="mono text-xs" style="color:#5CE1E6; font-size:0.6rem; letter-spacing:0.15em;">OPT 2 · PREMIUM ★</div>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-white/10">
+              <th class="compare-th text-left p-4 pl-6" style="width:34%;">SPEC</th>
+              <th class="compare-th compare-th-1 text-center p-4">OPTION 1 · Compact</th>
+              <th class="compare-th compare-th-2 text-center p-4" style="color:#5CE1E6;">OPTION 2 · Premium</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="compare-row">
+              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Camera Sensor</td>
+              <td class="compare-td compare-col-1 text-center text-xs">APS-C (Sony FX30)</td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs">Full Frame · Sony ZV-E1 + 24-70mm</td>
+            </tr>
+            <tr class="compare-row">
+              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">ISO Recording</td>
+              <td class="compare-td compare-col-1 text-center text-xs">✓ via ATEM</td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs">✓ ProRes/H.264 via vMix<br/><span style="color:#5CE1E6; font-size:0.65rem;">No Overheat Risk</span></td>
+            </tr>
+            <tr class="compare-row">
+              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Audio</td>
+              <td class="compare-td compare-col-1 text-center text-xs">Wireless Lav 32-bit Float</td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs">DJI Mic 2 + 32-bit Float Backup</td>
+            </tr>
+            <tr class="compare-row">
+              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Comment System</td>
+              <td class="compare-td compare-col-1 text-center text-xs">H2R Pop-up</td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs">vMix Social (Custom Animation)</td>
+            </tr>
+            <tr class="compare-row">
+              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Network Backup</td>
+              <td class="compare-td compare-col-1 text-center text-xs text-yellow-400/70">ไม่มี Redundancy</td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs">
+                <span class="text-green-400">5G Bonding (Auto-Failover)</span><br/>
+                <span style="color:rgba(92,225,230,0.55); font-size:0.65rem;">Redundancy Connection</span>
+              </td>
+            </tr>
+            <tr class="compare-row">
+              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Brand Aesthetic</td>
+              <td class="compare-td compare-col-1 text-center text-xs">Standard</td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs">Fully Customizable</td>
+            </tr>
+            <tr class="compare-row">
+              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Setup Complexity</td>
+              <td class="compare-td compare-col-1 text-center text-xs">Low</td>
+              <td class="compare-td compare-col-2 text-center text-xs">Medium</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider max-w-6xl mx-auto px-6"></div>
+
+  <!-- ═══════════════════════════════════════════
+       ADD-ON SERVICES
+  ══════════════════════════════════════════════ -->
+  <section class="py-24 px-6 max-w-6xl mx-auto">
+    <div class="section-label split-label mb-3">04 — Add-on Services</div>
+    <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">เพิ่มความสมบูรณ์</h2>
+    <p class="text-metal text-sm mb-10">บริการเสริมที่เลือกได้ตามความต้องการ</p>
+    <div class="divider w-16 mb-12"></div>
+
+    <div class="gsap-stagger grid grid-cols-1 md:grid-cols-2 gap-8">
+
+      <!-- Add-on A -->
+      <div class="addon-card rounded-2xl p-8">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(92,225,230,0.08); border:1px solid rgba(92,225,230,0.25)">
+            <svg class="w-6 h-6" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"/></svg>
+          </div>
+          <div>
+            <div class="section-label mb-1">ADD-ON A</div>
+            <h3 class="text-xl font-bold text-white">Acoustic Session Setup</h3>
+          </div>
+        </div>
+
+        <p class="text-metal text-sm leading-relaxed mb-6">
+          สำหรับกรณีที่มีช่วงโชว์ดนตรีสด — อัปเกรด Audio System ให้รองรับ Performance เต็มรูปแบบ
+        </p>
+
+        <div class="space-y-3">
+          <div class="spec-row">
+            <div class="w-1 h-1 rounded-full mt-2 shrink-0" style="background:#5CE1E6;"></div>
+            <div class="text-sm" style="color:#b0b0b0;">Audio Mixer อัปเกรด 12–16 Channel</div>
+          </div>
+          <div class="spec-row">
+            <div class="w-1 h-1 rounded-full mt-2 shrink-0" style="background:#5CE1E6;"></div>
+            <div class="text-sm" style="color:#b0b0b0;">Vocal Mic สำหรับร้องสด (Stage-Grade)</div>
+          </div>
+          <div class="spec-row">
+            <div class="w-1 h-1 rounded-full mt-2 shrink-0" style="background:#5CE1E6;"></div>
+            <div class="text-sm" style="color:#b0b0b0;">DI Box สำหรับ Guitar / Keyboard / Bass</div>
+          </div>
+          <div class="spec-row border-none">
+            <div class="w-1 h-1 rounded-full bg-metal mt-2 shrink-0"></div>
+            <div class="text-sm text-metal italic">* จำนวนเครื่องดนตรีสุดท้ายรอฝั่งลูกค้า Confirm</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add-on B -->
+      <div class="addon-card rounded-2xl p-8">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(92,225,230,0.08); border:1px solid rgba(92,225,230,0.25)">
+            <svg class="w-6 h-6" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 8.25h3m-3 3h3m-3 3h3"/></svg>
+          </div>
+          <div>
+            <div class="section-label mb-1">ADD-ON B</div>
+            <h3 class="text-xl font-bold text-white">TikTok Vertical Layout</h3>
+          </div>
+        </div>
+
+        <p class="text-metal text-sm leading-relaxed mb-6">
+          Output แนวตั้ง 9:16 แยกสำหรับ TikTok Live — ใส่ YUPP! Logo Branding ครบ
+          ให้ไลฟ์เดียวกันสามารถออกอากาศได้ทุก Platform พร้อมกัน
+        </p>
+
+        <div class="space-y-3">
+          <div class="spec-row">
+            <div class="w-1 h-1 rounded-full mt-2 shrink-0" style="background:#5CE1E6;"></div>
+            <div class="text-sm" style="color:#b0b0b0;">Output แยก 9:16 สำหรับ TikTok Live</div>
+          </div>
+          <div class="spec-row">
+            <div class="w-1 h-1 rounded-full mt-2 shrink-0" style="background:#5CE1E6;"></div>
+            <div class="text-sm" style="color:#b0b0b0;">Letterbox Format (ขอบดำบน-ล่าง) พร้อม YUPP! Logo</div>
+          </div>
+          <div class="spec-row">
+            <div class="w-1 h-1 rounded-full mt-2 shrink-0" style="background:#5CE1E6;"></div>
+            <div class="text-sm" style="color:#b0b0b0;">ส่งผ่าน OBS (Option 1) หรือ vMix Output (Option 2)</div>
+          </div>
+          <div class="spec-row border-none">
+            <div class="w-1 h-1 rounded-full mt-2 shrink-0" style="background:#5CE1E6;"></div>
+            <div class="text-sm" style="color:#b0b0b0;">รองรับ Facebook เพิ่มเติมในอนาคต</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Box -->
+    <div class="mt-12 card rounded-2xl p-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div>
+          <div class="section-label mb-2">CORE PACKAGE</div>
+          <div class="text-white font-semibold">Option 1 or Option 2</div>
+          <div class="text-metal text-xs mt-1 mono">3 Cameras · ISO Record · Interactive</div>
+        </div>
+        <div class="md:border-x border-white/10">
+          <div class="section-label mb-2">OPTIONAL UPGRADE</div>
+          <div class="text-white font-semibold">Add-on A + B</div>
+          <div class="text-metal text-xs mt-1 mono">Acoustic · TikTok Vertical</div>
+        </div>
+        <div>
+          <div class="section-label mb-2">BROADCAST PLATFORMS</div>
+          <div class="text-white font-semibold">YouTube · Facebook · TikTok</div>
+          <div class="text-metal text-xs mt-1 mono">16:9 Primary · 9:16 Addon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER / CTA
+  ══════════════════════════════════════════════ -->
+  <footer class="footer-glow py-20 px-6 text-center relative overflow-hidden">
+    <div class="divider max-w-md mx-auto mb-12"></div>
+
+    <div class="section-label mb-4">READY TO MAKE HISTORY</div>
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" style="letter-spacing:-0.02em;">
+      Let's Build The Debut
+    </h2>
+    <p class="text-metal max-w-lg mx-auto text-sm leading-relaxed mb-10">
+      MARQUISE's first appearance on screen is not just a Live Stream —<br/>
+      it's the opening chapter of a story fans will remember forever.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <div class="rounded-full px-8 py-3 mono text-sm tracking-widest font-bold" style="background:rgba(92,225,230,0.12); border:1px solid rgba(92,225,230,0.55); color:#5CE1E6;">
+        OPTION 2 · PREMIUM + 5G
+      </div>
+      <div class="rounded-full px-8 py-3 mono text-sm tracking-widest" style="border:1px solid rgba(92,225,230,0.2); color:rgba(92,225,230,0.55);">
+        + ADD-ON A · B
+      </div>
+    </div>
+
+    <div class="divider max-w-md mx-auto mt-12 mb-6"></div>
+
+    <div class="mono text-xs text-metal tracking-widest opacity-40">
+      YUPP! × MARQUISE · DEBUT LIVE STREAM · 2026
+    </div>
+  </footer>
+
+
+  <!-- ══════════════════════════════════════════
+       PLUGINS CDN
+  ═══════════════════════════════════════════ -->
+  <!-- GSAP 3 + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <!-- Splitting.js char animations -->
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <!-- CountUp.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.8.0/countUp.umd.js"></script>
+  <!-- Typed.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // ══════════════════════════════════════════
+    // 1. LENIS — buttery smooth scroll
+    // ══════════════════════════════════════════
+    const lenis = new Lenis({
+      duration: 1.25,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 0.85,
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // ══════════════════════════════════════════
+    // 2. GSAP + ScrollTrigger setup
+    // ══════════════════════════════════════════
+    gsap.registerPlugin(ScrollTrigger);
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    // ══════════════════════════════════════════
+    // 3. TYPED.js — LIVE // REC typewriter
+    // ══════════════════════════════════════════
+    new Typed('#typed-rec', {
+      strings: ['LIVE // REC'],
+      typeSpeed: 75,
+      startDelay: 800,
+      showCursor: true,
+      cursorChar: '▌',
+      onComplete: self => { if (self.cursor) self.cursor.style.opacity = '0'; },
+    });
+
+    // ══════════════════════════════════════════
+    // 4. SPLITTING.js — section labels char anim
+    // ══════════════════════════════════════════
+    Splitting({ target: '.split-label', by: 'chars' });
+    document.querySelectorAll('.split-label').forEach(label => {
+      const chars = label.querySelectorAll('.char');
+      gsap.set(chars, { opacity: 0, y: 8 });
+      ScrollTrigger.create({
+        trigger: label, start: 'top 92%', once: true,
+        onEnter: () => gsap.to(chars, {
+          opacity: 1, y: 0,
+          duration: 0.35,
+          stagger: 0.025,
+          ease: 'power2.out',
+        }),
+      });
+    });
+
+    // ══════════════════════════════════════════
+    // 5. HERO — entrance timeline (GSAP)
+    // ══════════════════════════════════════════
+    gsap.set(['#hero-rec', '#hero-date'], { opacity: 0, y: -10 });
+    gsap.set(['#hero-label', '#hero-title', '#hero-subtitle-wrap',
+              '#hero-divider', '#hero-hook', '#hero-quote', '#hero-tags'], { opacity: 0, y: 24 });
+
+    const heroTl = gsap.timeline({ delay: 0.15 });
+    heroTl
+      .to(['#hero-rec', '#hero-date'], { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1 })
+      .to('#hero-label',        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.2')
+      .to('#hero-title',        { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.3')
+      .to('#hero-subtitle-wrap',{ opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.5')
+      .to('#hero-divider',      { opacity: 1, y: 0, scaleX: 1, transformOrigin: 'center', duration: 0.5, ease: 'power2.inOut' }, '-=0.4')
+      .to('#hero-hook',         { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.3')
+      .to('#hero-quote',        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
+      .to('#hero-tags',         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.2');
+
+    // ══════════════════════════════════════════
+    // 6. SECTION HEADINGS — scroll reveal
+    // ══════════════════════════════════════════
+    document.querySelectorAll('.gsap-heading').forEach(el => {
+      gsap.from(el, {
+        opacity: 0, y: 38,
+        duration: 0.85, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      });
+    });
+
+    // ══════════════════════════════════════════
+    // 7. STAGGER CARDS — scroll-triggered
+    // ══════════════════════════════════════════
+    document.querySelectorAll('.gsap-stagger').forEach(container => {
+      const items = Array.from(container.children);
+      gsap.from(items, {
+        opacity: 0, y: 48, scale: 0.97,
+        duration: 0.75, stagger: 0.12, ease: 'power2.out',
+        scrollTrigger: { trigger: container, start: 'top 85%', once: true },
+      });
+    });
+
+    // ══════════════════════════════════════════
+    // 8. PROGRESS BARS — animate on scroll
+    // ══════════════════════════════════════════
+    document.querySelectorAll('.progress-fill').forEach(bar => {
+      const target = bar.style.width;
+      gsap.set(bar, { width: '0%' });
+      ScrollTrigger.create({
+        trigger: bar, start: 'top 88%', once: true,
+        onEnter: () => gsap.to(bar, { width: target, duration: 1.4, ease: 'power2.inOut' }),
+      });
+    });
+
+    // ══════════════════════════════════════════
+    // 9. COUNTUP — cameras & platforms
+    // ══════════════════════════════════════════
+    [
+      { id: 'stat-cameras',   end: 3, opts: { duration: 2, useEasing: true } },
+      { id: 'stat-platforms', end: 3, opts: { duration: 2, suffix: 'x', useEasing: true } },
+    ].forEach(({ id, end, opts }) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const cu = new countUp.CountUp(id, end, opts);
+      ScrollTrigger.create({
+        trigger: el, start: 'top 88%', once: true,
+        onEnter: () => cu.start(),
+      });
+    });
+
+    // Blur-reveal for text-based stats (16:9 and ISO)
+    ['stat-format', 'stat-iso'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      gsap.set(el, { opacity: 0, filter: 'blur(10px)', scale: 1.06 });
+      ScrollTrigger.create({
+        trigger: el, start: 'top 88%', once: true,
+        onEnter: () => gsap.to(el, {
+          opacity: 1, filter: 'blur(0px)', scale: 1,
+          duration: 0.9, ease: 'power2.out',
+        }),
+      });
+    });
+
+    // ══════════════════════════════════════════
+    // 10. COMPARISON TABLE — row stagger
+    // ══════════════════════════════════════════
+    const rows = document.querySelectorAll('.compare-row');
+    if (rows.length) {
+      gsap.from(rows, {
+        opacity: 0, x: -18,
+        duration: 0.45, stagger: 0.07, ease: 'power2.out',
+        scrollTrigger: { trigger: rows[0], start: 'top 85%', once: true },
+      });
+    }
+
+    // ══════════════════════════════════════════
+    // 11. OPTION CARDS — hover lift (GSAP)
+    // ══════════════════════════════════════════
+    document.querySelectorAll('.option-1, .option-2').forEach(card => {
+      card.addEventListener('mouseenter', () =>
+        gsap.to(card, { y: -5, duration: 0.3, ease: 'power2.out' }));
+      card.addEventListener('mouseleave', () =>
+        gsap.to(card, { y: 0, duration: 0.3, ease: 'power2.out' }));
+    });
+
+    // ══════════════════════════════════════════
+    // 12. ADDON CARDS — hover lift
+    // ══════════════════════════════════════════
+    document.querySelectorAll('.addon-card').forEach(card => {
+      card.addEventListener('mouseenter', () =>
+        gsap.to(card, { y: -4, duration: 0.25, ease: 'power2.out' }));
+      card.addEventListener('mouseleave', () =>
+        gsap.to(card, { y: 0, duration: 0.25, ease: 'power2.out' }));
+    });
+
+    // ══════════════════════════════════════════
+    // 13. ARTIST VISION QUOTE — slide in
+    // ══════════════════════════════════════════
+    const visionBlock = document.querySelector('.option-2.rounded-2xl');
+    if (visionBlock) {
+      gsap.from(visionBlock, {
+        opacity: 0, y: 30, scale: 0.98,
+        duration: 0.9, ease: 'power2.out',
+        scrollTrigger: { trigger: visionBlock, start: 'top 88%', once: true },
+      });
+    }
+
+    // ══════════════════════════════════════════
+    // 14. INSIGHT BANNER + SUMMARY BOX
+    // ══════════════════════════════════════════
+    document.querySelectorAll('.option-2.rounded-2xl.p-8.text-center, .mt-12.card.rounded-2xl').forEach(el => {
+      gsap.from(el, {
+        opacity: 0, y: 24,
+        duration: 0.8, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      });
+    });
+
+    // ══════════════════════════════════════════
+    // 15. FOOTER CTA — fade up
+    // ══════════════════════════════════════════
+    gsap.from('footer', {
+      opacity: 0, y: 20,
+      duration: 1, ease: 'power2.out',
+      scrollTrigger: { trigger: 'footer', start: 'top 90%', once: true },
+    });
+
+  });
+  </script>
+
+</body>
+</html>
