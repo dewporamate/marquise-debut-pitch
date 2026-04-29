@@ -278,6 +278,109 @@
       box-shadow: 0 0 14px rgba(92,225,230,0.55);
     }
 
+    /* OPTION 3 */
+    .option-3 {
+      background: rgba(180,160,255,0.04);
+      border: 1px solid rgba(180,160,255,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .option-3::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(180,160,255,0.7), transparent);
+    }
+
+    /* CHECKLIST BOX */
+    .checklist-box {
+      background: rgba(92,225,230,0.03);
+      border: 1px solid rgba(92,225,230,0.2);
+      border-radius: 0.75rem;
+      padding: 1rem;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.72rem;
+      color: #a0a0a0;
+    }
+    .checklist-item:last-child { border-bottom: none; }
+    .checklist-check {
+      width: 0.85rem;
+      height: 0.85rem;
+      border: 1px solid rgba(92,225,230,0.45);
+      border-radius: 0.2rem;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .checklist-check::after {
+      content: '';
+      width: 0.4rem;
+      height: 0.4rem;
+      background: rgba(92,225,230,0.5);
+      border-radius: 0.1rem;
+    }
+
+    /* PRICE BADGE */
+    .price-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      background: rgba(92,225,230,0.08);
+      border: 1px solid rgba(92,225,230,0.3);
+      color: #5CE1E6;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.35rem;
+    }
+    .price-badge-3 {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      background: rgba(180,160,255,0.08);
+      border: 1px solid rgba(180,160,255,0.3);
+      color: rgba(200,185,255,0.9);
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.35rem;
+    }
+
+    /* STUDIO IMAGES */
+    .studio-img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .studio-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,13,13,0.5) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .studio-img {
+      transition: transform 0.6s ease;
+    }
+    .studio-img-wrap:hover .studio-img {
+      transform: scale(1.03);
+    }
+
+    /* COMPARE TABLE 4-COL */
+    .compare-col-3 {
+      background: rgba(180,160,255,0.04);
+    }
+    .compare-row:hover .compare-col-3 { background: rgba(180,160,255,0.08); }
+    .compare-th-3 {
+      background: rgba(180,160,255,0.06);
+      border-top: 2px solid rgba(180,160,255,0.45);
+      color: rgba(200,185,255,0.9);
+    }
+
     /* SELECT SOLUTION BUTTONS */
     .btn-select {
       font-family: 'Space Mono', monospace;
@@ -689,11 +792,78 @@
   <div class="divider max-w-6xl mx-auto px-6"></div>
 
   <!-- ═══════════════════════════════════════════
+       STUDIO ADVANTAGE
+  ══════════════════════════════════════════════ -->
+  <section class="py-24 px-6 max-w-6xl mx-auto">
+    <div class="section-label split-label mb-3">03 — Studio Advantage</div>
+    <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">สตูดิโออัดเพลง = ความได้เปรียบ</h2>
+    <p class="text-metal text-sm mb-10">ห้องที่ออกแบบมาเพื่อเสียงโดยเฉพาะ — ทำให้ทุกคำพูดฟังดูเป็น Master Quality</p>
+    <div class="divider w-16 mb-12"></div>
+
+    <!-- Studio Photo Gallery -->
+    <div class="gsap-stagger grid grid-cols-1 md:grid-cols-5 gap-4 mb-12 rounded-2xl overflow-hidden">
+      <div class="studio-img-wrap rounded-2xl overflow-hidden md:col-span-2" style="aspect-ratio:3/4; min-height:280px;">
+        <img src="studio_01.jpg" alt="YUPP! Recording Studio — Control Desk" class="w-full h-full object-cover studio-img">
+      </div>
+      <div class="studio-img-wrap rounded-2xl overflow-hidden md:col-span-3" style="aspect-ratio:16/9; min-height:280px;">
+        <img src="studio_02.jpg" alt="YUPP! Recording Studio — Full View" class="w-full h-full object-cover studio-img">
+      </div>
+    </div>
+
+    <!-- Advantage Points -->
+    <div class="gsap-stagger grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <div class="card rounded-2xl p-6">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(92,225,230,0.08); border:1px solid rgba(92,225,230,0.22);">
+          <svg class="w-5 h-5" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/>
+          </svg>
+        </div>
+        <div class="section-label mb-2">ACOUSTIC TREATMENT</div>
+        <h3 class="text-base font-bold text-white mb-2">Professional Sound Isolation</h3>
+        <p class="text-metal text-xs leading-relaxed">
+          Acoustic Ceiling Panel แบบ Diffuser ป้องกัน Echo และ Room Tone ทำให้เสียงพูดคุยสะอาดเหมือนอัดในห้อง Recording ระดับมืออาชีพ — ไม่ต้องการ Sound Booth เพิ่มเติม
+        </p>
+      </div>
+
+      <div class="card rounded-2xl p-6">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(92,225,230,0.08); border:1px solid rgba(92,225,230,0.22);">
+          <svg class="w-5 h-5" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"/>
+          </svg>
+        </div>
+        <div class="section-label mb-2">STUDIO MONITORS</div>
+        <h3 class="text-base font-bold text-white mb-2">Master-Grade Audio Monitoring</h3>
+        <p class="text-metal text-xs leading-relaxed">
+          Studio Monitor ระดับ Reference ช่วยให้ Sound Engineer ได้ยินเสียงที่แท้จริงและ Mix Audio สำหรับ Live ได้อย่างแม่นยำ — ต่างจากสตูดิโอทั่วไปที่ต้องพึ่ง Headphone เพียงอย่างเดียว
+        </p>
+      </div>
+
+      <div class="card rounded-2xl p-6">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(92,225,230,0.08); border:1px solid rgba(92,225,230,0.22);">
+          <svg class="w-5 h-5" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>
+          </svg>
+        </div>
+        <div class="section-label mb-2">CINEMATIC ATMOSPHERE</div>
+        <h3 class="text-base font-bold text-white mb-2">Mood & Aesthetic ที่ตรงกับ MARQUISE</h3>
+        <p class="text-metal text-xs leading-relaxed">
+          บรรยากาศ Dark Studio พร้อม Purple Ambient LED และพื้นไม้ธรรมชาติ — ตรงกับ Brand Aesthetic "Quiet Luxury + Raw" ของ MARQUISE โดยไม่ต้องตกแต่งฉากเพิ่ม ลด Production Cost
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider max-w-6xl mx-auto px-6"></div>
+
+  <!-- ═══════════════════════════════════════════
        TECHNICAL SOLUTIONS
   ══════════════════════════════════════════════ -->
   <section class="py-24 px-6 max-w-6xl mx-auto">
-    <div class="section-label split-label mb-3">03 — Technical Solutions</div>
+    <div class="section-label split-label mb-3">04 — Technical Solutions</div>
     <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">เลือก Package ที่ใช่</h2>
+    <p class="text-metal text-sm mb-6">3 ระดับ เพื่อให้ตรงกับงบประมาณและเป้าหมายของงาน</p>
     <div class="divider w-16 my-6"></div>
 
     <!-- Network Context -->
@@ -711,229 +881,278 @@
       </div>
     </div>
 
-    <!-- Option Cards -->
-    <div class="gsap-stagger grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+    <!-- Option Cards (3) -->
+    <div class="gsap-stagger grid grid-cols-1 xl:grid-cols-3 gap-6 mb-12">
 
-      <!-- Option 1 -->
-      <div class="option-1 rounded-2xl p-8 flex flex-col">
-        <div class="flex items-start justify-between mb-6">
+      <!-- Option 1: Budget Efficient -->
+      <div class="option-1 rounded-2xl p-6 flex flex-col">
+        <div class="flex items-start justify-between mb-4">
           <div>
             <div class="section-label mb-2">OPTION 01</div>
-            <h3 class="text-2xl font-bold text-white" style="letter-spacing:-0.01em;">Compact Broadcast</h3>
-            <p class="text-metal text-sm mt-1">คล่องตัว · คุ้มค่า · ประหยัดพื้นที่</p>
+            <h3 class="text-xl font-bold text-white" style="letter-spacing:-0.01em;">Budget Efficient</h3>
+            <p class="text-metal text-xs mt-1">คล่องตัว · ใช้ของที่มี · ไม่มีต้นทุนเช่า</p>
           </div>
-          <div class="mono text-xs text-metal text-right pt-1">
-            Base<br/>System
-          </div>
+          <div class="mono text-xs" style="background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.35); color:rgba(74,222,128,0.9); padding:0.2rem 0.5rem; border-radius:0.35rem; font-size:0.6rem; letter-spacing:0.1em; white-space:nowrap;">฿ 0 ค่าเช่า</div>
         </div>
 
-        <div class="progress-bar rounded-full mb-6">
-          <div class="progress-fill" style="width:65%"></div>
+        <div class="progress-bar rounded-full mb-5">
+          <div class="progress-fill" style="width:48%"></div>
         </div>
 
         <div class="space-y-0 flex-1">
           <div class="spec-row">
             <svg class="spec-icon text-metal shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
             <div>
-              <div class="text-sm font-medium text-white">Camera</div>
-              <div class="text-xs text-metal mt-0.5">Sony FX30 / A7IV × 3 (Mirrorless) · เลนส์ซูม 1 + เลนส์ฟิกซ์ 2</div>
+              <div class="text-sm font-medium text-white">Camera <span class="badge-advantage" style="background:rgba(74,222,128,0.08); border-color:rgba(74,222,128,0.3); color:rgba(74,222,128,0.9);">2 กล้อง</span></div>
+              <div class="text-xs text-metal mt-0.5"><span class="text-white">Sony ZV-E1</span> (Wide · Full Frame) + <span class="text-white">DJI Osmo Pocket 3</span> (Tight)</div>
             </div>
           </div>
           <div class="spec-row">
             <svg class="spec-icon text-metal shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg>
             <div>
-              <div class="text-sm font-medium text-white">Switcher & Recording</div>
-              <div class="text-xs text-metal mt-0.5"><span style="color:#5CE1E6;">Blackmagic ATEM Mini Pro ISO</span> · อัด ISO 3 กล้อง + สร้าง DaVinci Resolve Project ทันที</div>
-            </div>
-          </div>
-          <div class="spec-row">
-            <svg class="spec-icon text-metal shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3"/></svg>
-            <div>
-              <div class="text-sm font-medium text-white">Stream & Graphics</div>
-              <div class="text-xs text-metal mt-0.5"><span style="color:#5CE1E6;">OBS Studio</span> + <span style="color:#5CE1E6;">H2R Graphics</span> · ดึง Comment ขึ้นเป็น Pop-up</div>
+              <div class="text-sm font-medium text-white">Switcher</div>
+              <div class="text-xs text-metal mt-0.5"><span class="text-white">OBS Studio</span> (Software) · ตัดสลับ 2 กล้อง · Insert Graphic / Comment Pop-up</div>
             </div>
           </div>
           <div class="spec-row">
             <svg class="spec-icon text-metal shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/></svg>
             <div>
               <div class="text-sm font-medium text-white">Audio</div>
-              <div class="text-xs text-metal mt-0.5">Wireless Lav 32-bit float × 2 + Zoom L-8 Digital Mixer</div>
+              <div class="text-xs text-metal mt-0.5"><span class="text-white">DJI Mic 2</span> × 2 · 32-bit Float Internal Backup Recording</div>
             </div>
           </div>
           <div class="spec-row">
             <svg class="spec-icon text-metal shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z"/></svg>
             <div>
               <div class="text-sm font-medium text-white">Network</div>
-              <div class="text-xs text-metal mt-0.5">LAN สตูดิโอ (Direct) · ไม่มี Redundancy</div>
+              <div class="text-xs text-metal mt-0.5">LAN สตูดิโอ (Direct) · <span class="text-yellow-400/70">ไม่มี Redundancy</span></div>
             </div>
           </div>
         </div>
 
-        <!-- Pros/Cons -->
-        <div class="mt-6 pt-6 border-t border-white/10">
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <div class="mono text-xs text-metal mb-2 tracking-wider">STRENGTHS</div>
-              <ul class="space-y-1">
-                <li class="text-xs text-silver flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Compact & Portable</li>
-                <li class="text-xs text-silver flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Cost-Effective</li>
-                <li class="text-xs text-silver flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Quick Setup</li>
-              </ul>
-            </div>
-            <div>
-              <div class="mono text-xs text-metal mb-2 tracking-wider">CONSIDERATIONS</div>
-              <ul class="space-y-1">
-                <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Single LAN เสี่ยง Drop</li>
-                <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>APS-C Sensor</li>
-                <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Graphics ปรับแต่งได้จำกัด</li>
-              </ul>
-            </div>
+        <!-- Required Accessories Checklist -->
+        <div class="mt-4">
+          <div class="mono text-xs text-metal mb-2 tracking-wider">REQUIRED ACCESSORIES CHECKLIST</div>
+          <div class="checklist-box">
+            <div class="checklist-item"><div class="checklist-check"></div>Video Capture Card × 1 (สำหรับ ZV-E1 เข้า OBS)</div>
+            <div class="checklist-item"><div class="checklist-check"></div>สาย Micro HDMI to HDMI (ZV-E1 → Capture Card)</div>
+            <div class="checklist-item"><div class="checklist-check"></div>Dummy Battery NP-FZ100 (ป้องกัน ZV-E1 Overheat)</div>
+            <div class="checklist-item"><div class="checklist-check"></div>สาย USB-C Data 2–3m (Osmo Pocket 3 → คอมพิวเตอร์)</div>
+            <div class="checklist-item"><div class="checklist-check"></div>Video Tripod (ZV-E1) + ขาตั้งเล็ก (Pocket 3)</div>
+            <div class="checklist-item"><div class="checklist-check"></div>Powered USB Hub + Gaffer Tape</div>
           </div>
         </div>
 
-        <div class="mt-6 pt-4 border-t border-white/10">
+        <div class="mt-4 pt-4 border-t border-white/10">
+          <ul class="grid grid-cols-2 gap-x-3 gap-y-1 mb-4">
+            <li class="text-xs text-silver flex gap-1.5"><span class="text-green-400 shrink-0">+</span>ต้นทุน ฿0</li>
+            <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>2 กล้องเท่านั้น</li>
+            <li class="text-xs text-silver flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Setup เร็ว</li>
+            <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>ไม่มี ISO Record</li>
+          </ul>
           <button class="btn-select btn-select-1 w-full">Select This Solution</button>
         </div>
       </div>
 
-      <!-- Option 2 -->
-      <div class="option-2 rounded-2xl p-8 flex flex-col">
-        <div class="flex items-start justify-between mb-6">
+      <!-- Option 2: Hybrid Professional (RECOMMENDED) -->
+      <div class="option-2 rounded-2xl p-6 flex flex-col" style="transform: translateY(-8px);">
+        <div class="flex items-start justify-between mb-4">
           <div>
             <div class="mono mb-2" style="font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; color:#5CE1E6; opacity:0.8;">OPTION 02</div>
-            <h3 class="text-2xl font-bold text-white" style="letter-spacing:-0.01em;">Premium + 5G Bonding</h3>
-            <p class="text-sm mt-1" style="color:rgba(92,225,230,0.65);">เสถียรสูงสุด · กราฟิกซับซ้อน · ระดับ Broadcast</p>
+            <h3 class="text-xl font-bold text-white" style="letter-spacing:-0.01em;">Hybrid Professional</h3>
+            <p class="text-xs mt-1" style="color:rgba(92,225,230,0.65);">สมดุล · Full Frame ทุกมุม · ISO Recording</p>
           </div>
-          <div class="badge-recommended">★ Recommended</div>
+          <div class="badge-recommended">✨ Recommended</div>
         </div>
 
-        <div class="progress-bar rounded-full mb-6">
-          <div class="progress-fill" style="width:95%"></div>
+        <div class="progress-bar rounded-full mb-5">
+          <div class="progress-fill" style="width:78%"></div>
         </div>
 
         <div class="space-y-0 flex-1">
           <div class="spec-row">
             <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
             <div>
-              <div class="text-sm font-medium text-white">Camera</div>
-              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">Sony ZV-E1 + เลนส์ 24-70mm × 3</span> · Full Frame Sensor · Bokeh ลึก · สตูดิโอเล็กดู Premium</div>
+              <div class="text-sm font-medium text-white">Camera <span class="badge-advantage">3 กล้อง FF</span></div>
+              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">Sony ZV-E1</span> (มีอยู่แล้ว) + <span class="text-white">เช่า Sony A7C II × 2</span> · Full Frame ทุกมุม · Bokeh ลึก</div>
             </div>
           </div>
           <div class="spec-row">
             <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg>
             <div>
-              <div class="text-sm font-medium text-white">Switcher & Recording <span class="badge-advantage">✦ No Overheat Risk</span></div>
-              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">PC Workstation + vMix Pro</span> · ISO Recording ProRes/H.264 · ตัดสลับกราฟิกลื่นไหล</div>
-              <div class="text-xs mt-1" style="color:rgba(92,225,230,0.45);">ATEM Mini Pro ISO รับภาระ Recording แยกออกจากกล้อง — กล้องไม่ร้อนระหว่างไลฟ์ยาว</div>
+              <div class="text-sm font-medium text-white">Switcher & Recording <span class="badge-advantage">✦ No Overheat</span></div>
+              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">เช่า ATEM Mini Pro ISO</span> · อัด ISO แยกทุกกล้อง + Export DaVinci Project ทันที</div>
             </div>
           </div>
           <div class="spec-row">
             <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3"/></svg>
             <div>
               <div class="text-sm font-medium text-white">Stream & Graphics</div>
-              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">vMix Social</span> · ดึง Comment Native · ปรับแต่ง Animation ให้ตรง Aesthetic ของ MARQUISE 100%</div>
+              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">OBS + H2R Graphics</span> · Comment Pop-up แบบ Real-Time</div>
             </div>
           </div>
           <div class="spec-row">
             <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/></svg>
             <div>
               <div class="text-sm font-medium text-white">Audio</div>
-              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">DJI Mic 2</span> (Wireless Lavalier) × 2 + 32-bit Float Internal Backup Recording · Shotgun Mic สำรอง/Ambient</div>
+              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">DJI Mic 2</span> × 2 (ต่อเข้า ATEM) · 32-bit Float Backup</div>
             </div>
           </div>
           <div class="spec-row">
             <svg class="spec-icon shrink-0" style="color:#5CE1E6;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z"/></svg>
             <div>
-              <div class="text-sm font-medium text-white">Network — 5G Bonding <span class="badge-advantage">✦ Redundancy</span></div>
-              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);"><span class="text-white">LiveU Solo หรือ Peplink</span> · รวม LAN + ซิม 5G · หากเน็ตตึกหลุด → สลับ 5G ทันที ไลฟ์ไม่กระตุก</div>
-              <div class="text-xs mt-1" style="color:rgba(92,225,230,0.45);">Redundancy Connection — ไม่มีจุดเดียวที่ล้มเหลวได้ แม้ LAN สตูดิโอขาด ไลฟ์ยังคงต่อเนื่อง</div>
+              <div class="text-sm font-medium text-white">Network <span class="badge-advantage">✦ 5G สำรอง</span></div>
+              <div class="text-xs mt-0.5" style="color:rgba(92,225,230,0.65);">LAN สตูดิโอ + <span class="text-white">5G Hotspot สำรอง</span> · หากเน็ตหลุดสลับ 5G ทันที</div>
             </div>
           </div>
         </div>
 
-        <div class="mt-6 pt-6 border-t border-white/10">
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <div class="mono text-xs mb-2 tracking-wider" style="color:rgba(92,225,230,0.6);">STRENGTHS</div>
-              <ul class="space-y-1">
-                <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>เสถียร 100% Redundant</li>
-                <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Full Frame Cinematic Look</li>
-                <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Graphics ตรง Brand Aesthetic</li>
-                <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Broadcast-Grade Audio</li>
-              </ul>
-            </div>
-            <div>
-              <div class="mono text-xs mb-2 tracking-wider" style="color:rgba(92,225,230,0.6);">CONSIDERATIONS</div>
-              <ul class="space-y-1">
-                <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Budget สูงกว่า Option 1</li>
-                <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Setup Time นานกว่า</li>
-              </ul>
-            </div>
+        <div class="mt-4 pt-4 border-t border-white/10">
+          <div class="flex items-center justify-between mb-3">
+            <span class="section-label">RENTAL ESTIMATE</span>
+            <span class="price-badge">฿ 7,500 – 9,500 / วัน</span>
           </div>
-        </div>
-
-        <div class="mt-6 pt-4 border-t border-white/10">
+          <ul class="grid grid-cols-2 gap-x-3 gap-y-1 mb-4">
+            <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Full Frame ทุกมุม</li>
+            <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>ต้องเช่า A7C II + ATEM</li>
+            <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>ISO Record ทุกกล้อง</li>
+            <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Setup นานกว่า Opt.1</li>
+          </ul>
           <button class="btn-select btn-select-2 w-full">Select This Solution</button>
+        </div>
+      </div>
+
+      <!-- Option 3: Ultimate Cinema -->
+      <div class="option-3 rounded-2xl p-6 flex flex-col">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <div class="mono mb-2" style="font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; color:rgba(200,185,255,0.8);">OPTION 03</div>
+            <h3 class="text-xl font-bold text-white" style="letter-spacing:-0.01em;">Ultimate Cinema</h3>
+            <p class="text-xs mt-1" style="color:rgba(180,160,255,0.65);">Cinema Grade · Broadcast Safety · จัดเต็ม</p>
+          </div>
+          <div class="mono text-xs" style="background:rgba(180,160,255,0.1); border:1px solid rgba(180,160,255,0.35); color:rgba(200,185,255,0.9); padding:0.2rem 0.5rem; border-radius:0.35rem; font-size:0.6rem; letter-spacing:0.1em; white-space:nowrap;">Cinema Grade</div>
+        </div>
+
+        <div class="progress-bar rounded-full mb-5" style="background:rgba(255,255,255,0.06);">
+          <div class="progress-fill" style="width:100%; background:linear-gradient(to right, rgba(180,160,255,0.5), rgba(200,185,255,0.9));"></div>
+        </div>
+
+        <div class="space-y-0 flex-1">
+          <div class="spec-row">
+            <svg class="spec-icon shrink-0" style="color:rgba(200,185,255,0.8);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Camera</div>
+              <div class="text-xs mt-0.5" style="color:rgba(180,160,255,0.65);"><span class="text-white">เช่า Sony FX3</span> (Cinema Line · Main) + <span class="text-white">เช่า Sony A7C II × 2</span> (Full Frame Tight)</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon shrink-0" style="color:rgba(200,185,255,0.8);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Switcher & Recording</div>
+              <div class="text-xs mt-0.5" style="color:rgba(180,160,255,0.65);"><span class="text-white">เช่า vMix Workstation + ATEM ISO</span> · Pro-Grade ตัดสลับกราฟิกลื่นสุด · ISO Recording คุณภาพสูง</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon shrink-0" style="color:rgba(200,185,255,0.8);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Stream & Graphics</div>
+              <div class="text-xs mt-0.5" style="color:rgba(180,160,255,0.65);"><span class="text-white">vMix Social</span> · Comment Animation Custom ตรง Brand Aesthetic MARQUISE 100%</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon shrink-0" style="color:rgba(200,185,255,0.8);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Audio</div>
+              <div class="text-xs mt-0.5" style="color:rgba(180,160,255,0.65);"><span class="text-white">เช่า Sennheiser EW-DP</span> (Broadcast Wireless Lav) + ผสานระบบ Studio Mixer ในห้องอัด</div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <svg class="spec-icon shrink-0" style="color:rgba(200,185,255,0.8);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z"/></svg>
+            <div>
+              <div class="text-sm font-medium text-white">Network — LiveU Solo Bonding</div>
+              <div class="text-xs mt-0.5" style="color:rgba(180,160,255,0.65);"><span class="text-white">เช่า LiveU Solo</span> · รวม LAN + 5G Bonding · <span style="color:rgba(74,222,128,0.9);">Zero Drop Guaranteed</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-white/10">
+          <div class="flex items-center justify-between mb-3">
+            <span class="section-label">RENTAL ESTIMATE</span>
+            <span class="price-badge-3">฿ 25,000 – 35,000 / วัน</span>
+          </div>
+          <ul class="grid grid-cols-2 gap-x-3 gap-y-1 mb-4">
+            <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Cinema Grade Look</li>
+            <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Budget สูงสุด</li>
+            <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>100% Stable Network</li>
+            <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Setup ซับซ้อน</li>
+          </ul>
+          <button class="btn-select btn-select-1 w-full" style="border-color:rgba(180,160,255,0.4); color:rgba(200,185,255,0.85);">Select This Solution</button>
         </div>
       </div>
     </div>
 
-    <!-- Comparison Table -->
+    <!-- Comparison Table (4 columns) -->
     <div class="card rounded-2xl overflow-hidden">
-      <div class="p-6 border-b border-white/10 flex items-center justify-between">
+      <div class="p-6 border-b border-white/10 flex items-center justify-between flex-wrap gap-3">
         <div class="section-label">HEAD-TO-HEAD COMPARISON</div>
-        <div class="flex gap-3">
-          <div class="mono text-xs" style="color:rgba(255,255,255,0.3); font-size:0.6rem; letter-spacing:0.15em;">OPT 1 · BASE</div>
-          <div class="mono text-xs" style="color:#5CE1E6; font-size:0.6rem; letter-spacing:0.15em;">OPT 2 · PREMIUM ★</div>
+        <div class="flex gap-3 flex-wrap">
+          <div class="mono text-xs" style="color:rgba(255,255,255,0.4); font-size:0.6rem; letter-spacing:0.12em;">OPT 1 · BUDGET</div>
+          <div class="mono text-xs" style="color:#5CE1E6; font-size:0.6rem; letter-spacing:0.12em;">OPT 2 · HYBRID ✨</div>
+          <div class="mono text-xs" style="color:rgba(200,185,255,0.8); font-size:0.6rem; letter-spacing:0.12em;">OPT 3 · CINEMA</div>
         </div>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead>
             <tr class="border-b border-white/10">
-              <th class="compare-th text-left p-4 pl-6" style="width:34%;">SPEC</th>
-              <th class="compare-th compare-th-1 text-center p-4">OPTION 1 · Compact</th>
-              <th class="compare-th compare-th-2 text-center p-4" style="color:#5CE1E6;">OPTION 2 · Premium</th>
+              <th class="compare-th text-left p-3 pl-6" style="min-width:130px;">SPEC</th>
+              <th class="compare-th compare-th-1 text-center p-3" style="min-width:140px;">OPTION 1</th>
+              <th class="compare-th compare-th-2 text-center p-3" style="min-width:160px; color:#5CE1E6;">OPTION 2 ✨</th>
+              <th class="compare-th compare-th-3 text-center p-3" style="min-width:160px;">OPTION 3</th>
             </tr>
           </thead>
           <tbody>
             <tr class="compare-row">
-              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Camera Sensor</td>
-              <td class="compare-td compare-col-1 text-center text-xs">APS-C (Sony FX30)</td>
-              <td class="compare-td compare-col-2 highlight text-center text-xs">Full Frame · Sony ZV-E1 + 24-70mm</td>
+              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Camera</td>
+              <td class="compare-td compare-col-1 text-center text-xs">ZV-E1 + Pocket 3<br/><span class="text-metal" style="font-size:0.65rem;">2 กล้อง (FF + Pocket)</span></td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs">ZV-E1 + A7C II ×2<br/><span style="color:#5CE1E6; font-size:0.65rem;">3 กล้อง Full Frame</span></td>
+              <td class="compare-td compare-col-3 highlight text-center text-xs">FX3 + A7C II ×2<br/><span style="color:rgba(200,185,255,0.8); font-size:0.65rem;">3 กล้อง Cinema Line</span></td>
+            </tr>
+            <tr class="compare-row">
+              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Switcher</td>
+              <td class="compare-td compare-col-1 text-center text-xs">OBS Software</td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs">ATEM Mini Pro ISO</td>
+              <td class="compare-td compare-col-3 highlight text-center text-xs">vMix + ATEM ISO</td>
             </tr>
             <tr class="compare-row">
               <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">ISO Recording</td>
-              <td class="compare-td compare-col-1 text-center text-xs">✓ via ATEM</td>
-              <td class="compare-td compare-col-2 highlight text-center text-xs">✓ ProRes/H.264 via vMix<br/><span style="color:#5CE1E6; font-size:0.65rem;">No Overheat Risk</span></td>
+              <td class="compare-td compare-col-1 text-center text-xs text-yellow-400/70">✗ ไม่รองรับ</td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs"><span class="text-green-400">✓ ATEM</span><br/><span style="color:#5CE1E6; font-size:0.65rem;">No Overheat Risk</span></td>
+              <td class="compare-td compare-col-3 highlight text-center text-xs"><span class="text-green-400">✓ vMix + ATEM</span><br/><span style="color:rgba(200,185,255,0.7); font-size:0.65rem;">ProRes Quality</span></td>
             </tr>
             <tr class="compare-row">
               <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Audio</td>
-              <td class="compare-td compare-col-1 text-center text-xs">Wireless Lav 32-bit Float</td>
-              <td class="compare-td compare-col-2 highlight text-center text-xs">DJI Mic 2 + 32-bit Float Backup</td>
-            </tr>
-            <tr class="compare-row">
-              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Comment System</td>
-              <td class="compare-td compare-col-1 text-center text-xs">H2R Pop-up</td>
-              <td class="compare-td compare-col-2 highlight text-center text-xs">vMix Social (Custom Animation)</td>
+              <td class="compare-td compare-col-1 text-center text-xs">DJI Mic 2 32-bit</td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs">DJI Mic 2 32-bit</td>
+              <td class="compare-td compare-col-3 highlight text-center text-xs">Sennheiser EW-DP<br/><span style="color:rgba(200,185,255,0.7); font-size:0.65rem;">+ Studio Mixer</span></td>
             </tr>
             <tr class="compare-row">
               <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Network Backup</td>
-              <td class="compare-td compare-col-1 text-center text-xs text-yellow-400/70">ไม่มี Redundancy</td>
-              <td class="compare-td compare-col-2 highlight text-center text-xs">
-                <span class="text-green-400">5G Bonding (Auto-Failover)</span><br/>
-                <span style="color:rgba(92,225,230,0.55); font-size:0.65rem;">Redundancy Connection</span>
-              </td>
+              <td class="compare-td compare-col-1 text-center text-xs text-yellow-400/70">✗ ไม่มี</td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs"><span class="text-green-400">5G Hotspot</span></td>
+              <td class="compare-td compare-col-3 highlight text-center text-xs"><span class="text-green-400">LiveU Bonding</span><br/><span style="color:rgba(200,185,255,0.7); font-size:0.65rem;">Zero Drop</span></td>
             </tr>
             <tr class="compare-row">
-              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Brand Aesthetic</td>
-              <td class="compare-td compare-col-1 text-center text-xs">Standard</td>
-              <td class="compare-td compare-col-2 highlight text-center text-xs">Fully Customizable</td>
+              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Rental Cost</td>
+              <td class="compare-td compare-col-1 text-center text-xs"><span class="text-green-400 font-semibold">฿ 0</span></td>
+              <td class="compare-td compare-col-2 highlight text-center text-xs" style="color:#5CE1E6; font-weight:500;">฿ 7,500–9,500<br/><span class="text-metal" style="font-size:0.65rem;">/ วัน</span></td>
+              <td class="compare-td compare-col-3 highlight text-center text-xs" style="color:rgba(200,185,255,0.85); font-weight:500;">฿ 25,000–35,000<br/><span class="text-metal" style="font-size:0.65rem;">/ วัน</span></td>
             </tr>
             <tr class="compare-row">
-              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Setup Complexity</td>
+              <td class="compare-td pl-6 text-metal text-xs mono tracking-wider">Setup</td>
               <td class="compare-td compare-col-1 text-center text-xs">Low</td>
               <td class="compare-td compare-col-2 text-center text-xs">Medium</td>
+              <td class="compare-td compare-col-3 text-center text-xs">High</td>
             </tr>
           </tbody>
         </table>
@@ -947,7 +1166,7 @@
        ADD-ON SERVICES
   ══════════════════════════════════════════════ -->
   <section class="py-24 px-6 max-w-6xl mx-auto">
-    <div class="section-label split-label mb-3">04 — Add-on Services</div>
+    <div class="section-label split-label mb-3">05 — Add-on Services</div>
     <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">เพิ่มความสมบูรณ์</h2>
     <p class="text-metal text-sm mb-10">บริการเสริมที่เลือกได้ตามความต้องการ</p>
     <div class="divider w-16 mb-12"></div>
@@ -1033,8 +1252,8 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
         <div>
           <div class="section-label mb-2">CORE PACKAGE</div>
-          <div class="text-white font-semibold">Option 1 or Option 2</div>
-          <div class="text-metal text-xs mt-1 mono">3 Cameras · ISO Record · Interactive</div>
+          <div class="text-white font-semibold">Option 1, 2 หรือ 3</div>
+          <div class="text-metal text-xs mt-1 mono">2–3 Cameras · ISO Record · Interactive</div>
         </div>
         <div class="md:border-x border-white/10">
           <div class="section-label mb-2">OPTIONAL UPGRADE</div>
@@ -1066,10 +1285,13 @@
     </p>
 
     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-      <div class="rounded-full px-8 py-3 mono text-sm tracking-widest font-bold" style="background:rgba(92,225,230,0.12); border:1px solid rgba(92,225,230,0.55); color:#5CE1E6;">
-        OPTION 2 · PREMIUM + 5G
+      <div class="rounded-full px-6 py-3 mono text-sm tracking-widest font-bold" style="background:rgba(92,225,230,0.12); border:1px solid rgba(92,225,230,0.55); color:#5CE1E6;">
+        OPT 2 · HYBRID ✨ RECOMMENDED
       </div>
-      <div class="rounded-full px-8 py-3 mono text-sm tracking-widest" style="border:1px solid rgba(92,225,230,0.2); color:rgba(92,225,230,0.55);">
+      <div class="rounded-full px-6 py-3 mono text-xs tracking-widest" style="border:1px solid rgba(180,160,255,0.3); color:rgba(200,185,255,0.6);">
+        OPT 3 · CINEMA GRADE
+      </div>
+      <div class="rounded-full px-6 py-3 mono text-xs tracking-widest" style="border:1px solid rgba(92,225,230,0.2); color:rgba(92,225,230,0.45);">
         + ADD-ON A · B
       </div>
     </div>
@@ -1248,11 +1470,13 @@
     // ══════════════════════════════════════════
     // 11. OPTION CARDS — hover lift (GSAP)
     // ══════════════════════════════════════════
-    document.querySelectorAll('.option-1, .option-2').forEach(card => {
+    document.querySelectorAll('.option-1, .option-2, .option-3').forEach(card => {
       card.addEventListener('mouseenter', () =>
         gsap.to(card, { y: -5, duration: 0.3, ease: 'power2.out' }));
-      card.addEventListener('mouseleave', () =>
-        gsap.to(card, { y: 0, duration: 0.3, ease: 'power2.out' }));
+      card.addEventListener('mouseleave', () => {
+        const isOpt2 = card.classList.contains('option-2');
+        gsap.to(card, { y: isOpt2 ? -8 : 0, duration: 0.3, ease: 'power2.out' });
+      });
     });
 
     // ══════════════════════════════════════════
