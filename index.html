@@ -1455,10 +1455,16 @@
     // ══════════════════════════════════════════
     document.querySelectorAll('.gsap-stagger').forEach(container => {
       const items = Array.from(container.children);
-      gsap.from(items, {
-        opacity: 0, y: 48, scale: 0.97,
-        duration: 0.75, stagger: 0.12, ease: 'power2.out',
-        scrollTrigger: { trigger: container, start: 'top 85%', once: true },
+      gsap.set(items, { opacity: 0, y: 48, scale: 0.97 });
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'top 92%',
+        once: true,
+        invalidateOnRefresh: true,
+        onEnter: () => gsap.to(items, {
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.75, stagger: 0.12, ease: 'power2.out',
+        }),
       });
     });
 
@@ -1585,7 +1591,20 @@
     // ══════════════════════════════════════════
     // 16. REFRESH — recalculate after images load
     // ══════════════════════════════════════════
-    window.addEventListener('load', () => ScrollTrigger.refresh());
+    window.addEventListener('load', () => {
+      ScrollTrigger.refresh();
+      // Failsafe: force-show any cards that ScrollTrigger missed
+      setTimeout(() => {
+        document.querySelectorAll('.gsap-stagger').forEach(container => {
+          const items = Array.from(container.children);
+          items.forEach(el => {
+            if (parseFloat(gsap.getProperty(el, 'opacity')) < 0.5) {
+              gsap.to(el, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'power2.out' });
+            }
+          });
+        });
+      }, 1200);
+    });
 
   });
   </script>
