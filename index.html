@@ -1179,6 +1179,7 @@
               id="diagram-img"
               src="SET_LIVE_DIAGRAM.png"
               alt="Full Set Live 1 Diagram — Technical Setup"
+              width="960" height="540"
               style="
                 width: 100%;
                 max-width: 100%;
@@ -1580,6 +1581,11 @@
       duration: 1, ease: 'power2.out',
       scrollTrigger: { trigger: 'footer', start: 'top 90%', once: true },
     });
+
+    // ══════════════════════════════════════════
+    // 16. REFRESH — recalculate after images load
+    // ══════════════════════════════════════════
+    window.addEventListener('load', () => ScrollTrigger.refresh());
 
   });
   </script>
