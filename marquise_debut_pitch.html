@@ -847,20 +847,34 @@
           background: rgba(255,255,255,0.02);
           box-shadow: 0 0 60px rgba(92,225,230,0.07), 0 8px 48px rgba(0,0,0,0.55);
         ">
-          <img
-            src="SET_LIVE_DIAGRAM.png"
-            alt="Full Set Live 1 Diagram — Technical Setup"
-            style="
-              width: 100%;
-              max-width: 100%;
-              height: auto;
-              display: block;
-              margin: 0 auto;
-              border-radius: 0.5rem;
-              border: 1px solid rgba(92,225,230,0.12);
-              box-shadow: 0 4px 32px rgba(0,0,0,0.4);
-            "
-          />
+          <div id="diagram-trigger" style="position:relative; cursor:zoom-in; display:inline-block; width:100%;">
+            <img
+              id="diagram-img"
+              src="SET_LIVE_DIAGRAM.png"
+              alt="Full Set Live 1 Diagram — Technical Setup"
+              style="
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+                border-radius: 0.5rem;
+                border: 1px solid rgba(92,225,230,0.12);
+                box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+                transition: opacity 0.2s;
+                pointer-events: none;
+                user-select: none;
+              "
+            />
+            <div style="
+              position:absolute; bottom:0.75rem; right:0.75rem;
+              font-family:'Space Mono',monospace; font-size:0.55rem;
+              letter-spacing:0.18em; color:rgba(92,225,230,0.75);
+              background:rgba(0,0,0,0.65); border:1px solid rgba(92,225,230,0.3);
+              border-radius:0.35rem; padding:0.25rem 0.65rem;
+              text-transform:uppercase; pointer-events:none;
+            ">&#x26F6; CLICK TO EXPLORE</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1006,6 +1020,143 @@
       YUPP! × MARQUISE · DEBUT LIVE STREAM · 2026
     </div>
   </footer>
+
+<!-- ═══ DIAGRAM ZOOM MODAL ═══ -->
+<style>
+  .zoom-ctrl-btn {
+    width:2.5rem; height:2.5rem; border-radius:50%;
+    border:1px solid rgba(92,225,230,0.35);
+    background:rgba(92,225,230,0.08);
+    color:#5CE1E6; font-size:1.2rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono',monospace;
+    transition:background 0.2s;
+  }
+  .zoom-ctrl-btn:hover { background:rgba(92,225,230,0.2); }
+  .zoom-ctrl-btn.wide { width:auto; padding:0 0.9rem; font-size:0.55rem; letter-spacing:0.15em; }
+</style>
+
+<div id="zoom-modal" style="display:none; position:fixed; inset:0; z-index:10000;
+  background:rgba(0,0,0,0.93); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  flex-direction:column; align-items:center; justify-content:center;">
+
+  <button id="zoom-close" class="zoom-ctrl-btn" type="button"
+    style="position:absolute; top:1.25rem; right:1.25rem; z-index:2;">✕</button>
+
+  <div style="position:absolute; top:1.35rem; left:50%; transform:translateX(-50%);
+    font-family:'Space Mono',monospace; font-size:0.55rem; letter-spacing:0.2em;
+    color:rgba(92,225,230,0.45); text-transform:uppercase; pointer-events:none; white-space:nowrap;">
+    SCROLL TO ZOOM &nbsp;·&nbsp; DRAG TO PAN &nbsp;·&nbsp; DBL-CLICK RESET
+  </div>
+
+  <div id="zoom-container" style="width:100%; height:100%; display:flex;
+    align-items:center; justify-content:center; cursor:grab; overflow:hidden;">
+    <img id="zoom-img" src="SET_LIVE_DIAGRAM.png" alt="Full Set Live 1 Diagram"
+      style="max-width:90vw; max-height:85vh; border-radius:0.5rem;
+        box-shadow:0 8px 64px rgba(0,0,0,0.8); user-select:none; pointer-events:none;
+        transform-origin:center center; will-change:transform;" />
+  </div>
+
+  <div style="position:absolute; bottom:1.5rem; left:50%; transform:translateX(-50%);
+    display:flex; gap:0.6rem; z-index:2; align-items:center;">
+    <button id="zoom-out-btn" class="zoom-ctrl-btn" type="button">−</button>
+    <button id="zoom-reset-btn" class="zoom-ctrl-btn wide" type="button">RESET</button>
+    <button id="zoom-in-btn" class="zoom-ctrl-btn" type="button">+</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var modal = document.getElementById('zoom-modal');
+  var container = document.getElementById('zoom-container');
+  var img = document.getElementById('zoom-img');
+  var trigger = document.getElementById('diagram-trigger');
+  if (!modal || !trigger) return;
+
+  var scale = 1, tx = 0, ty = 0;
+  var dragging = false, startX, startY;
+
+  function apply() {
+    img.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+  }
+  function reset() { scale = 1; tx = 0; ty = 0; apply(); }
+
+  function open() { modal.style.display = 'flex'; reset(); document.body.style.overflow = 'hidden'; }
+  function close() { modal.style.display = 'none'; document.body.style.overflow = ''; }
+
+  trigger.addEventListener('click', open);
+  document.getElementById('zoom-close').addEventListener('click', close);
+  modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+
+  container.addEventListener('wheel', function (e) {
+    e.preventDefault();
+    var rect = container.getBoundingClientRect();
+    var cx = e.clientX - rect.left - rect.width / 2;
+    var cy = e.clientY - rect.top - rect.height / 2;
+    var oldScale = scale;
+    scale = Math.min(Math.max(scale * (e.deltaY < 0 ? 1.12 : 0.89), 0.4), 12);
+    tx += cx * (1 - scale / oldScale);
+    ty += cy * (1 - scale / oldScale);
+    apply();
+  }, { passive: false });
+
+  container.addEventListener('mousedown', function (e) {
+    dragging = true; startX = e.clientX - tx; startY = e.clientY - ty;
+    container.style.cursor = 'grabbing'; e.preventDefault();
+  });
+  window.addEventListener('mousemove', function (e) {
+    if (!dragging) return;
+    tx = e.clientX - startX; ty = e.clientY - startY; apply();
+  });
+  window.addEventListener('mouseup', function () { dragging = false; container.style.cursor = 'grab'; });
+
+  container.addEventListener('dblclick', reset);
+
+  document.getElementById('zoom-in-btn').addEventListener('click', function () {
+    scale = Math.min(scale * 1.3, 12); apply();
+  });
+  document.getElementById('zoom-out-btn').addEventListener('click', function () {
+    scale = Math.max(scale * 0.77, 0.4); apply();
+  });
+  document.getElementById('zoom-reset-btn').addEventListener('click', reset);
+
+  var lastDist = null, tStartX, tStartY;
+  container.addEventListener('touchstart', function (e) {
+    if (e.touches.length === 2) {
+      lastDist = Math.hypot(e.touches[1].clientX - e.touches[0].clientX,
+                            e.touches[1].clientY - e.touches[0].clientY);
+    } else {
+      dragging = true;
+      tStartX = e.touches[0].clientX - tx;
+      tStartY = e.touches[0].clientY - ty;
+    }
+  }, { passive: true });
+  container.addEventListener('touchmove', function (e) {
+    e.preventDefault();
+    if (e.touches.length === 2) {
+      var dist = Math.hypot(e.touches[1].clientX - e.touches[0].clientX,
+                            e.touches[1].clientY - e.touches[0].clientY);
+      if (lastDist) {
+        var oldScale = scale;
+        scale = Math.min(Math.max(scale * (dist / lastDist), 0.4), 12);
+        var mx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        var my = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        var rect = container.getBoundingClientRect();
+        tx += (mx - rect.left - rect.width / 2) * (1 - scale / oldScale);
+        ty += (my - rect.top - rect.height / 2) * (1 - scale / oldScale);
+        apply();
+      }
+      lastDist = dist;
+    } else if (dragging) {
+      tx = e.touches[0].clientX - tStartX;
+      ty = e.touches[0].clientY - tStartY;
+      apply();
+    }
+  }, { passive: false });
+  container.addEventListener('touchend', function () { dragging = false; lastDist = null; });
+})();
+</script>
 
 </body>
 </html>
