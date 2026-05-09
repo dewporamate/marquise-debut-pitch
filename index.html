@@ -1454,70 +1454,6 @@
       </div>
     </div>
 
-    <!-- ── BUDGET CALCULATOR (part of section 05) ── -->
-    <div class="calc-card" id="budget-calculator">
-      <div class="flex items-start justify-between mb-5 flex-wrap gap-3">
-        <div>
-          <div class="calc-section-label mb-0.5">Estimate Your Budget</div>
-          <h3 class="text-xl font-bold text-white" style="letter-spacing:-0.01em;">Configure Your Package</h3>
-          <p class="text-xs mt-1" style="color:var(--metal);">Configure your package and see the total instantly.</p>
-        </div>
-        <div class="flex items-center gap-2 mono text-xs" style="color:var(--metal); font-size:0.6rem; letter-spacing:0.12em;">
-          <svg class="w-3.5 h-3.5" style="color:#00d4ff;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          LIVE ESTIMATE
-        </div>
-      </div>
-
-      <!-- Row 1: Package selector -->
-      <div class="calc-section-label">Package</div>
-      <div class="calc-radio-group" id="calc-radio-group">
-        <div class="calc-radio-pill" data-option="1">Opt 1 · Budget</div>
-        <div class="calc-radio-pill calc-active" data-option="2">Opt 2 · Hybrid</div>
-        <div class="calc-radio-pill" data-option="3">Opt 3 · Cinema</div>
-      </div>
-
-      <div class="calc-divider"></div>
-
-      <!-- Row 2: Add-on toggles -->
-      <div class="calc-section-label">Add-ons</div>
-      <div>
-        <div class="calc-row">
-          <div class="calc-toggle-wrap" id="toggle-wrap-a">
-            <div class="calc-toggle" id="toggle-addon-a"></div>
-            <div class="calc-addon-name">Add-on A · TikTok Vertical Layout</div>
-          </div>
-          <span class="calc-addon-status" id="status-addon-a">Optional</span>
-        </div>
-        <div class="calc-row">
-          <div class="calc-toggle-wrap" id="toggle-wrap-b">
-            <div class="calc-toggle" id="toggle-addon-b"></div>
-            <div class="calc-addon-name">Add-on B · Multi-Platform Simulcast</div>
-          </div>
-          <span class="calc-addon-status" id="status-addon-b">Optional</span>
-        </div>
-      </div>
-      <p class="text-xs mt-2" style="color:var(--metal); font-style:italic; opacity:0.75;">
-        Add-ons are included at no additional cost — subject to technical confirmation before D-Day
-      </p>
-
-      <div class="calc-divider"></div>
-
-      <!-- Row 3: Crew note -->
-      <div class="calc-crew-note">
-        <svg class="w-4 h-4 shrink-0" style="color:var(--metal);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
-        </svg>
-        <span>5-person crew included in all packages</span>
-      </div>
-
-      <!-- Row 4: Total display -->
-      <div class="calc-total-wrap">
-        <div class="calc-total-label">Estimated Total</div>
-        <div class="calc-total-amount" id="calc-total-display">฿ 10,000 – 12,000 / day</div>
-      </div>
-
-      <p class="calc-footnote">* Prices are estimates. Final quote provided after consultation.</p>
-    </div>
 
   </section>
 
@@ -1624,6 +1560,67 @@
           <div class="text-metal text-xs mt-1 mono">16:9 Primary · 9:16 Addon</div>
         </div>
       </div>
+    </div>
+
+    <!-- BUDGET CALCULATOR -->
+    <div class="calc-card" id="budget-calculator">
+      <div class="flex items-start justify-between mb-5 flex-wrap gap-3">
+        <div>
+          <div class="calc-section-label mb-0.5">Estimate Your Budget</div>
+          <h3 class="text-xl font-bold text-white" style="letter-spacing:-0.01em;">Configure Your Package</h3>
+          <p class="text-xs mt-1" style="color:var(--metal);">Configure your package and see the total instantly.</p>
+        </div>
+        <div class="flex items-center gap-2 mono text-xs" style="color:var(--metal); font-size:0.6rem; letter-spacing:0.12em;">
+          <svg class="w-3.5 h-3.5" style="color:#00d4ff;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          LIVE ESTIMATE
+        </div>
+      </div>
+
+      <div class="calc-section-label">Package</div>
+      <div class="calc-radio-group" id="calc-radio-group">
+        <div class="calc-radio-pill" data-option="1">Opt 1 · Budget</div>
+        <div class="calc-radio-pill calc-active" data-option="2">Opt 2 · Hybrid</div>
+        <div class="calc-radio-pill" data-option="3">Opt 3 · Cinema</div>
+      </div>
+
+      <div class="calc-divider"></div>
+
+      <div class="calc-section-label">Add-ons</div>
+      <div>
+        <div class="calc-row">
+          <div class="calc-toggle-wrap" id="toggle-wrap-a">
+            <div class="calc-toggle" id="toggle-addon-a"></div>
+            <div class="calc-addon-name">Add-on A · TikTok Vertical Layout</div>
+          </div>
+          <span class="calc-addon-status" id="status-addon-a">Optional</span>
+        </div>
+        <div class="calc-row">
+          <div class="calc-toggle-wrap" id="toggle-wrap-b">
+            <div class="calc-toggle" id="toggle-addon-b"></div>
+            <div class="calc-addon-name">Add-on B · Multi-Platform Simulcast</div>
+          </div>
+          <span class="calc-addon-status" id="status-addon-b">Optional</span>
+        </div>
+      </div>
+      <p class="text-xs mt-2" style="color:var(--metal); font-style:italic; opacity:0.75;">
+        Add-ons are included at no additional cost — subject to technical confirmation before D-Day
+      </p>
+
+      <div class="calc-divider"></div>
+
+      <div class="calc-crew-note">
+        <svg class="w-4 h-4 shrink-0" style="color:var(--metal);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+        </svg>
+        <span>5-person crew included in all packages</span>
+      </div>
+
+      <div class="calc-total-wrap">
+        <div class="calc-total-label">Estimated Total</div>
+        <div class="calc-total-amount" id="calc-total-display">฿ 10,000 – 12,000 / day</div>
+      </div>
+
+      <p class="calc-footnote">* Prices are estimates. Final quote provided after consultation.</p>
     </div>
   </section>
 
