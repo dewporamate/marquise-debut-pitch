@@ -457,6 +457,172 @@
       background: rgba(92,225,230,0.06);
       border-top: 2px solid rgba(92,225,230,0.5);
     }
+
+    /* ══════════════════════════════════════════
+       OPTION SELECTOR STATES
+    ══════════════════════════════════════════ */
+    .selector-selected {
+      border-color: #00d4ff !important;
+      box-shadow: 0 0 0 1px rgba(0,212,255,0.08), 0 0 40px rgba(0,212,255,0.1) !important;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .selector-selected-badge {
+      display: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      background: rgba(0,212,255,0.12);
+      border: 1px solid rgba(0,212,255,0.55);
+      color: #00d4ff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.35rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .selector-selected-badge.selector-visible { display: inline-block; }
+    .btn-select.selector-btn-active {
+      background: #00d4ff !important;
+      color: #0d0d0d !important;
+      border-color: #00d4ff !important;
+      box-shadow: 0 0 24px rgba(0,212,255,0.4) !important;
+    }
+
+    /* ══════════════════════════════════════════
+       BUDGET CALCULATOR
+    ══════════════════════════════════════════ */
+    .calc-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+    .calc-section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      color: var(--metal);
+      text-transform: uppercase;
+      margin-bottom: 0.65rem;
+    }
+    .calc-radio-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .calc-radio-pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.45rem 0.9rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: var(--metal);
+      transition: all 0.2s ease;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .calc-radio-pill:hover { border-color: rgba(0,212,255,0.4); color: rgba(0,212,255,0.7); }
+    .calc-radio-pill.calc-active { background: #00d4ff; color: #0d0d0d; border-color: #00d4ff; font-weight: 700; }
+    .calc-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 1.25rem 0; }
+    .calc-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.55rem 0;
+    }
+    .calc-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      flex: 1;
+    }
+    .calc-toggle {
+      position: relative;
+      width: 2.25rem;
+      height: 1.25rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 9999px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .calc-toggle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0.18rem;
+      transform: translateY(-50%);
+      width: 0.72rem;
+      height: 0.72rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      transition: all 0.2s ease;
+    }
+    .calc-toggle.calc-on { background: rgba(0,212,255,0.18); border-color: rgba(0,212,255,0.55); }
+    .calc-toggle.calc-on::after { left: calc(100% - 0.18rem - 0.72rem); background: #00d4ff; }
+    .calc-addon-name { font-size: 0.8rem; color: #c0c0c0; }
+    .calc-addon-status {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      color: var(--metal);
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .calc-addon-status.calc-included { color: #00d4ff; }
+    .calc-total-wrap {
+      background: rgba(0,212,255,0.04);
+      border: 1px solid rgba(0,212,255,0.18);
+      border-radius: 0.75rem;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .calc-total-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      color: rgba(0,212,255,0.55);
+      text-transform: uppercase;
+    }
+    .calc-total-amount {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #00d4ff;
+      letter-spacing: 0.04em;
+      transition: opacity 0.15s ease;
+    }
+    .calc-crew-note {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--metal);
+    }
+    .calc-footnote {
+      font-size: 0.7rem;
+      color: var(--metal);
+      font-style: italic;
+      margin-top: 0.9rem;
+      opacity: 0.7;
+    }
+    @media (max-width: 767px) {
+      .calc-radio-group { flex-direction: column; }
+      .calc-radio-pill { text-align: center; }
+      .calc-total-wrap { flex-direction: column; align-items: flex-start; }
+    }
   </style>
 </head>
 <body class="antialiased">
@@ -923,14 +1089,17 @@
     <div class="gsap-stagger grid grid-cols-1 xl:grid-cols-3 gap-6 mb-12">
 
       <!-- Option 1: Budget Efficient -->
-      <div class="option-1 rounded-2xl p-6 flex flex-col">
+      <div class="option-1 rounded-2xl p-6 flex flex-col" id="option-card-1">
         <div class="flex items-start justify-between mb-4">
           <div>
             <div class="section-label mb-2">OPTION 01</div>
             <h3 class="text-xl font-bold text-white" style="letter-spacing:-0.01em;">Budget Efficient</h3>
             <p class="text-metal text-xs mt-1">Lean · Works with existing gear · Zero rental cost</p>
           </div>
-          <div class="mono text-xs" style="background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.35); color:rgba(74,222,128,0.9); padding:0.2rem 0.5rem; border-radius:0.35rem; font-size:0.6rem; letter-spacing:0.1em; white-space:nowrap;">฿ 5,000 – 7,000</div>
+          <div class="flex flex-col items-end gap-1.5">
+            <div class="mono text-xs" style="background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.35); color:rgba(74,222,128,0.9); padding:0.2rem 0.5rem; border-radius:0.35rem; font-size:0.6rem; letter-spacing:0.1em; white-space:nowrap;">฿ 5,000 – 7,000</div>
+            <span class="selector-selected-badge" id="badge-selected-1">✓ SELECTED</span>
+          </div>
         </div>
 
         <div class="progress-bar rounded-full mb-5">
@@ -992,19 +1161,22 @@
             <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>Fast Setup</li>
             <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>No ISO Recording</li>
           </ul>
-          <button class="btn-select btn-select-1 w-full">Select This Solution</button>
+          <button class="btn-select btn-select-1 w-full" id="btn-select-1" data-option="1">Select This Solution</button>
         </div>
       </div>
 
       <!-- Option 2: Hybrid Professional (RECOMMENDED) -->
-      <div class="option-2 rounded-2xl p-6 flex flex-col" style="transform: translateY(-8px);">
+      <div class="option-2 rounded-2xl p-6 flex flex-col" id="option-card-2" style="transform: translateY(-8px);">
         <div class="flex items-start justify-between mb-4">
           <div>
             <div class="mono mb-2" style="font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; color:#5CE1E6; opacity:0.8;">OPTION 02</div>
             <h3 class="text-xl font-bold text-white" style="letter-spacing:-0.01em;">Hybrid Professional</h3>
             <p class="text-xs mt-1" style="color:rgba(92,225,230,0.65);">Balanced · Full Frame at every angle · ISO Recording</p>
           </div>
-          <div class="badge-recommended">✨ Recommended</div>
+          <div class="flex flex-col items-end gap-1.5">
+            <div class="badge-recommended">✨ Recommended</div>
+            <span class="selector-selected-badge" id="badge-selected-2">✓ SELECTED</span>
+          </div>
         </div>
 
         <div class="progress-bar rounded-full mb-5">
@@ -1060,19 +1232,22 @@
             <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>ISO Record Per Camera</li>
             <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Longer Setup than Opt.1</li>
           </ul>
-          <button class="btn-select btn-select-2 w-full">Select This Solution</button>
+          <button class="btn-select btn-select-2 w-full" id="btn-select-2" data-option="2">Select This Solution</button>
         </div>
       </div>
 
       <!-- Option 3: Ultimate Cinema -->
-      <div class="option-3 rounded-2xl p-6 flex flex-col">
+      <div class="option-3 rounded-2xl p-6 flex flex-col" id="option-card-3">
         <div class="flex items-start justify-between mb-4">
           <div>
             <div class="mono mb-2" style="font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; color:rgba(200,185,255,0.8);">OPTION 03</div>
             <h3 class="text-xl font-bold text-white" style="letter-spacing:-0.01em;">Ultimate Cinema</h3>
             <p class="text-xs mt-1" style="color:rgba(180,160,255,0.65);">Cinema Grade · Broadcast Safety · Full Production</p>
           </div>
-          <div class="mono text-xs" style="background:rgba(180,160,255,0.1); border:1px solid rgba(180,160,255,0.35); color:rgba(200,185,255,0.9); padding:0.2rem 0.5rem; border-radius:0.35rem; font-size:0.6rem; letter-spacing:0.1em; white-space:nowrap;">Cinema Grade</div>
+          <div class="flex flex-col items-end gap-1.5">
+            <div class="mono text-xs" style="background:rgba(180,160,255,0.1); border:1px solid rgba(180,160,255,0.35); color:rgba(200,185,255,0.9); padding:0.2rem 0.5rem; border-radius:0.35rem; font-size:0.6rem; letter-spacing:0.1em; white-space:nowrap;">Cinema Grade</div>
+            <span class="selector-selected-badge" id="badge-selected-3">✓ SELECTED</span>
+          </div>
         </div>
 
         <div class="progress-bar rounded-full mb-5" style="background:rgba(255,255,255,0.06);">
@@ -1128,7 +1303,7 @@
             <li class="text-xs text-white flex gap-1.5"><span class="text-green-400 shrink-0">+</span>100% Stable Network</li>
             <li class="text-xs text-metal flex gap-1.5"><span class="text-yellow-400/60 shrink-0">~</span>Complex Setup</li>
           </ul>
-          <button class="btn-select btn-select-1 w-full" style="border-color:rgba(180,160,255,0.4); color:rgba(200,185,255,0.85);">Select This Solution</button>
+          <button class="btn-select btn-select-1 w-full" id="btn-select-3" data-option="3" style="border-color:rgba(180,160,255,0.4); color:rgba(200,185,255,0.85);">Select This Solution</button>
         </div>
       </div>
     </div>
@@ -1199,6 +1374,71 @@
           </tbody>
         </table>
       </div>
+    </div>
+
+    <!-- ── BUDGET CALCULATOR (part of section 05) ── -->
+    <div class="calc-card" id="budget-calculator">
+      <div class="flex items-start justify-between mb-5 flex-wrap gap-3">
+        <div>
+          <div class="calc-section-label mb-0.5">Estimate Your Budget</div>
+          <h3 class="text-xl font-bold text-white" style="letter-spacing:-0.01em;">Configure Your Package</h3>
+          <p class="text-xs mt-1" style="color:var(--metal);">Configure your package and see the total instantly.</p>
+        </div>
+        <div class="flex items-center gap-2 mono text-xs" style="color:var(--metal); font-size:0.6rem; letter-spacing:0.12em;">
+          <svg class="w-3.5 h-3.5" style="color:#00d4ff;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          LIVE ESTIMATE
+        </div>
+      </div>
+
+      <!-- Row 1: Package selector -->
+      <div class="calc-section-label">Package</div>
+      <div class="calc-radio-group" id="calc-radio-group">
+        <div class="calc-radio-pill" data-option="1">Opt 1 · Budget</div>
+        <div class="calc-radio-pill calc-active" data-option="2">Opt 2 · Hybrid</div>
+        <div class="calc-radio-pill" data-option="3">Opt 3 · Cinema</div>
+      </div>
+
+      <div class="calc-divider"></div>
+
+      <!-- Row 2: Add-on toggles -->
+      <div class="calc-section-label">Add-ons</div>
+      <div>
+        <div class="calc-row">
+          <div class="calc-toggle-wrap" id="toggle-wrap-a">
+            <div class="calc-toggle" id="toggle-addon-a"></div>
+            <div class="calc-addon-name">Add-on A · TikTok Vertical Layout</div>
+          </div>
+          <span class="calc-addon-status" id="status-addon-a">Optional</span>
+        </div>
+        <div class="calc-row">
+          <div class="calc-toggle-wrap" id="toggle-wrap-b">
+            <div class="calc-toggle" id="toggle-addon-b"></div>
+            <div class="calc-addon-name">Add-on B · Multi-Platform Simulcast</div>
+          </div>
+          <span class="calc-addon-status" id="status-addon-b">Optional</span>
+        </div>
+      </div>
+      <p class="text-xs mt-2" style="color:var(--metal); font-style:italic; opacity:0.75;">
+        Add-ons are included at no additional cost — subject to technical confirmation before D-Day
+      </p>
+
+      <div class="calc-divider"></div>
+
+      <!-- Row 3: Crew note -->
+      <div class="calc-crew-note">
+        <svg class="w-4 h-4 shrink-0" style="color:var(--metal);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+        </svg>
+        <span>5-person crew included in all packages</span>
+      </div>
+
+      <!-- Row 4: Total display -->
+      <div class="calc-total-wrap">
+        <div class="calc-total-label">Estimated Total</div>
+        <div class="calc-total-amount" id="calc-total-display">฿ 10,000 – 12,000 / day</div>
+      </div>
+
+      <p class="calc-footnote">* Prices are estimates. Final quote provided after consultation.</p>
     </div>
 
   </section>
@@ -1316,9 +1556,12 @@
     <div class="divider max-w-md mx-auto mb-12"></div>
 
     <div class="section-label mb-4">READY TO MAKE HISTORY</div>
-    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" style="letter-spacing:-0.02em;">
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-3" style="letter-spacing:-0.02em;">
       Let's Build The Debut
     </h2>
+    <div id="cta-selected-package" class="mono text-sm tracking-wider mb-6 transition-all duration-300" style="color:var(--metal);">
+      No package selected yet — choose above ↑
+    </div>
     <p class="text-metal max-w-lg mx-auto text-sm leading-relaxed mb-10">
       MARQUISE's first appearance on screen is not just a Live Stream —<br/>
       it's the opening chapter of a story fans will remember forever.
@@ -1739,6 +1982,159 @@
     }
   }, { passive: false });
   container.addEventListener('touchend', function () { dragging = false; lastDist = null; });
+})();
+</script>
+
+
+<script>
+/* ══════════════════════════════════════════
+   OPTION SELECTOR + BUDGET CALCULATOR
+   Vanilla JS · No external deps
+══════════════════════════════════════════ */
+(function () {
+  var OPTIONS = {
+    1: { name: 'Budget Efficient',    min: 5000,  max: 7000  },
+    2: { name: 'Hybrid Professional', min: 10000, max: 12000 },
+    3: { name: 'Ultimate Cinema',     min: 20000, max: 25000 },
+  };
+
+  /* Restore from sessionStorage (null if nothing stored) */
+  var stored = sessionStorage.getItem('marq_option');
+  var selected = stored ? parseInt(stored) : null;
+
+  /* ── Helpers ─────────────────────────── */
+  function fmt(n) {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  /* ── Core: select an option ─────────── */
+  function selectOption(n, scrollToCTA) {
+    selected = n;
+    if (n) sessionStorage.setItem('marq_option', String(n));
+    else sessionStorage.removeItem('marq_option');
+
+    updateCards(n);
+    updateButtons(n);
+    updateCTA(n);
+    updateCalcRadios(n);
+    updateTotal(n);
+
+    if (scrollToCTA && n) {
+      setTimeout(function () {
+        var footer = document.querySelector('footer');
+        if (footer) footer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 800);
+    }
+  }
+
+  /* ── Card visuals ────────────────────── */
+  function updateCards(n) {
+    [1, 2, 3].forEach(function (i) {
+      var card = document.getElementById('option-card-' + i);
+      var badge = document.getElementById('badge-selected-' + i);
+      if (!card) return;
+
+      var isSelected = (i === n);
+      var isDimmed   = (n !== null && !isSelected);
+
+      card.classList.toggle('selector-selected', isSelected);
+      /* Use inline opacity to override GSAP's completed animation value */
+      card.style.opacity = isDimmed ? '0.45' : '1';
+      card.style.transition = 'border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease';
+
+      if (badge) badge.classList.toggle('selector-visible', isSelected);
+    });
+  }
+
+  /* ── Button states ───────────────────── */
+  function updateButtons(n) {
+    [1, 2, 3].forEach(function (i) {
+      var btn = document.getElementById('btn-select-' + i);
+      if (!btn) return;
+      var isActive = (i === n);
+      btn.classList.toggle('selector-btn-active', isActive);
+      btn.textContent = isActive ? '✓ SELECTED' : 'Select This Solution';
+    });
+  }
+
+  /* ── CTA display ─────────────────────── */
+  function updateCTA(n) {
+    var el = document.getElementById('cta-selected-package');
+    if (!el) return;
+    if (n && OPTIONS[n]) {
+      el.textContent = 'Selected Package: ' + OPTIONS[n].name;
+      el.style.color = '#00d4ff';
+    } else {
+      el.textContent = 'No package selected yet — choose above ↑';
+      el.style.color = 'var(--metal)';
+    }
+  }
+
+  /* ── Calculator radios ───────────────── */
+  function updateCalcRadios(n) {
+    document.querySelectorAll('.calc-radio-pill').forEach(function (pill) {
+      pill.classList.toggle('calc-active', parseInt(pill.dataset.option) === n);
+    });
+  }
+
+  /* ── Total amount (with flash) ───────── */
+  function updateTotal(n) {
+    var el = document.getElementById('calc-total-display');
+    if (!el) return;
+    var opt = n && OPTIONS[n];
+    var text = opt
+      ? '฿ ' + fmt(opt.min) + ' – ' + fmt(opt.max) + ' / day'
+      : '— select a package above —';
+    el.style.opacity = '0';
+    setTimeout(function () {
+      el.textContent = text;
+      el.style.opacity = '1';
+    }, 75);
+  }
+
+  /* ── Card button clicks → select + scroll ── */
+  [1, 2, 3].forEach(function (i) {
+    var btn = document.getElementById('btn-select-' + i);
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      selectOption(i, true);
+    });
+  });
+
+  /* ── Calculator radio clicks → select (no scroll) ── */
+  document.querySelectorAll('.calc-radio-pill').forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      selectOption(parseInt(pill.dataset.option), false);
+    });
+  });
+
+  /* ── Add-on toggles (selection only, no price impact) ── */
+  ['a', 'b'].forEach(function (id) {
+    var wrap   = document.getElementById('toggle-wrap-' + id);
+    var toggle = document.getElementById('toggle-addon-' + id);
+    var status = document.getElementById('status-addon-' + id);
+    if (!wrap || !toggle || !status) return;
+    var on = false;
+    function setToggle(val) {
+      on = val;
+      toggle.classList.toggle('calc-on', on);
+      status.textContent = on ? '✓ Included' : 'Optional';
+      status.classList.toggle('calc-included', on);
+    }
+    wrap.addEventListener('click', function () { setToggle(!on); });
+  });
+
+  /* ── Restore state from sessionStorage ── */
+  if (selected) {
+    /* Defer so GSAP animations complete first */
+    setTimeout(function () { selectOption(selected, false); }, 300);
+  } else {
+    /* Show default calc total for Option 2 (the default radio) */
+    updateCalcRadios(2);
+    updateTotal(2);
+    updateCTA(null);
+  }
+
 })();
 </script>
 
