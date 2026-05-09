@@ -2008,7 +2008,7 @@
   }
 
   /* ── Core: select an option ─────────── */
-  function selectOption(n, scrollToCTA) {
+  function selectOption(n) {
     selected = n;
     if (n) sessionStorage.setItem('marq_option', String(n));
     else sessionStorage.removeItem('marq_option');
@@ -2019,18 +2019,6 @@
     updateCalcRadios(n);
     updateTotal(n);
 
-    if (scrollToCTA && n) {
-      setTimeout(function () {
-        var footer = document.querySelector('footer');
-        if (!footer) return;
-        if (window.__lenis) {
-          window.__lenis.scrollTo(footer, { offset: -40, duration: 1.4 });
-        } else {
-          var top = footer.getBoundingClientRect().top + window.pageYOffset - 40;
-          window.scrollTo({ top: top, behavior: 'smooth' });
-        }
-      }, 600);
-    }
   }
 
   /* ── Card visuals ────────────────────── */
@@ -2104,9 +2092,9 @@
     if (!btn) return;
     btn.addEventListener('click', function () {
       if (selected === i) {
-        selectOption(null, false); /* click again to deselect */
+        selectOption(null); /* click again to deselect */
       } else {
-        selectOption(i, true);
+        selectOption(i);
       }
     });
   });
