@@ -1608,7 +1608,7 @@
     // ══════════════════════════════════════════
     // 1. LENIS — buttery smooth scroll
     // ══════════════════════════════════════════
-    const lenis = new Lenis({
+    const lenis = window.__lenis = new Lenis({
       duration: 1.25,
       easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
@@ -2022,8 +2022,14 @@
     if (scrollToCTA && n) {
       setTimeout(function () {
         var footer = document.querySelector('footer');
-        if (footer) footer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 800);
+        if (!footer) return;
+        if (window.__lenis) {
+          window.__lenis.scrollTo(footer, { offset: -40, duration: 1.4 });
+        } else {
+          var top = footer.getBoundingClientRect().top + window.pageYOffset - 40;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      }, 600);
     }
   }
 
@@ -2097,7 +2103,11 @@
     var btn = document.getElementById('btn-select-' + i);
     if (!btn) return;
     btn.addEventListener('click', function () {
-      selectOption(i, true);
+      if (selected === i) {
+        selectOption(null, false); /* click again to deselect */
+      } else {
+        selectOption(i, true);
+      }
     });
   });
 
