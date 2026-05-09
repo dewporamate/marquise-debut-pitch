@@ -625,83 +625,115 @@
     }
 
     /* ══════════════════════════════════════════
-       STICKY NAV BAR
+       DOT NAVIGATION
     ══════════════════════════════════════════ */
-    .snav-bar {
+    .dotnav-wrap {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 48px;
-      background: rgba(10,10,10,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid #1a1a1a;
-      z-index: 9998;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
       opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
+      animation: dotnav-fadein 0.6s ease 0.8s forwards;
     }
-    .snav-bar.snav-visible {
-      opacity: 1;
-      pointer-events: auto;
+    @keyframes dotnav-fadein { to { opacity: 1; } }
+
+    .dotnav-track {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      background: #1a1a1a;
+      z-index: 0;
     }
-    .snav-inner {
-      height: 100%;
+    .dotnav-item {
+      position: relative;
+      z-index: 1;
+      width: 20px;
+      height: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 24px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      cursor: pointer;
+      flex-shrink: 0;
     }
-    .snav-inner::-webkit-scrollbar { display: none; }
-    .snav-item {
-      font-family: 'Space Mono', monospace;
+    .dotnav-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #333;
+      transition: width 0.2s ease, height 0.2s ease,
+                  background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .dotnav-item.dotnav-active .dotnav-dot {
+      width: 8px;
+      height: 8px;
+      background: #00d4ff;
+      box-shadow: 0 0 6px rgba(0,212,255,0.6);
+    }
+    .dotnav-tip {
+      position: absolute;
+      right: calc(100% + 10px);
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(10,10,10,0.9);
+      border: 1px solid #1a1a1a;
+      color: #ccc;
+      font-family: 'Courier New', Courier, monospace;
       font-size: 9px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #555;
-      text-decoration: none;
-      padding: 0 16px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      position: relative;
+      padding: 4px 10px;
+      border-radius: 2px;
       white-space: nowrap;
-      flex-shrink: 0;
-      transition: color 0.15s ease;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      transition-delay: 0s;
     }
-    .snav-item::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 2px;
-      background: #00d4ff;
-      border-radius: 1px;
-      transition: width 0.15s ease;
+    .dotnav-item:hover .dotnav-tip,
+    .dotnav-item.dotnav-tip-show .dotnav-tip {
+      opacity: 1;
+      transition-delay: 0.15s;
     }
-    .snav-item.snav-active { color: #00d4ff; }
-    .snav-item.snav-active::after { width: 20px; }
     @media (max-width: 767px) {
-      .snav-inner { justify-content: flex-start; }
-      .snav-item { font-size: 8px; padding: 0 12px; }
+      .dotnav-wrap { right: 12px; }
     }
   </style>
 </head>
 <body class="antialiased">
 
-  <!-- STICKY NAV -->
-  <nav class="snav-bar" id="snav" aria-label="Section navigation">
-    <div class="snav-inner">
-      <a class="snav-item" href="#section-01" data-section="section-01">01 · Overview</a>
-      <a class="snav-item" href="#section-02" data-section="section-02">02 · Market Proof</a>
-      <a class="snav-item" href="#section-03" data-section="section-03">03 · Our Approach</a>
-      <a class="snav-item" href="#section-04" data-section="section-04">04 · Location</a>
-      <a class="snav-item" href="#section-05" data-section="section-05">05 · Packages</a>
-      <a class="snav-item" href="#section-06" data-section="section-06">06 · Add-ons</a>
+  <!-- DOT NAV -->
+  <nav class="dotnav-wrap" id="dotnav" aria-label="Section navigation">
+    <div class="dotnav-track"></div>
+    <div class="dotnav-item" data-section="section-01">
+      <div class="dotnav-dot"></div>
+      <div class="dotnav-tip">Overview</div>
+    </div>
+    <div class="dotnav-item" data-section="section-02">
+      <div class="dotnav-dot"></div>
+      <div class="dotnav-tip">Market Proof</div>
+    </div>
+    <div class="dotnav-item" data-section="section-03">
+      <div class="dotnav-dot"></div>
+      <div class="dotnav-tip">Our Approach</div>
+    </div>
+    <div class="dotnav-item" data-section="section-04">
+      <div class="dotnav-dot"></div>
+      <div class="dotnav-tip">Location</div>
+    </div>
+    <div class="dotnav-item" data-section="section-05">
+      <div class="dotnav-dot"></div>
+      <div class="dotnav-tip">Packages</div>
+    </div>
+    <div class="dotnav-item" data-section="section-06">
+      <div class="dotnav-dot"></div>
+      <div class="dotnav-tip">Add-ons</div>
     </div>
   </nav>
 
@@ -1916,48 +1948,49 @@
     });
 
     // ══════════════════════════════════════════
-    // 17. STICKY NAV — visibility + active tracking
+    // 17. DOT NAV — active tracking + click scroll + mobile tooltip
     // ══════════════════════════════════════════
-    const snav = document.getElementById('snav');
-    const snavItems = document.querySelectorAll('.snav-item');
-
-    // Show nav when hero scrolls out of view
-    const heroEl = document.getElementById('section-hero');
-    if (heroEl && snav) {
-      new IntersectionObserver(
-        ([entry]) => snav.classList.toggle('snav-visible', !entry.isIntersecting),
-        { threshold: 0.05 }
-      ).observe(heroEl);
-    }
+    const dotnavItems = Array.from(document.querySelectorAll('.dotnav-item'));
 
     // Track active section — single observer for all 6 sections
-    const snavSections = ['section-01','section-02','section-03',
-                          'section-04','section-05','section-06']
+    const dotnavSections = ['section-01','section-02','section-03',
+                            'section-04','section-05','section-06']
       .map(id => document.getElementById(id)).filter(Boolean);
 
-    if (snavSections.length && snavItems.length) {
-      let currentId = null;
-      const sectionObs = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) currentId = entry.target.id; });
-        snavItems.forEach(item =>
-          item.classList.toggle('snav-active', item.dataset.section === currentId)
+    if (dotnavSections.length && dotnavItems.length) {
+      let dotCurrentId = null;
+      const dotSectionObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) dotCurrentId = entry.target.id; });
+        dotnavItems.forEach(item =>
+          item.classList.toggle('dotnav-active', item.dataset.section === dotCurrentId)
         );
-      }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
-      snavSections.forEach(el => sectionObs.observe(el));
+      }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+      dotnavSections.forEach(el => dotSectionObs.observe(el));
     }
 
-    // Smooth scroll via Lenis on nav click
-    snavItems.forEach(item => {
-      item.addEventListener('click', e => {
-        e.preventDefault();
+    // Click: smooth scroll to section
+    dotnavItems.forEach(item => {
+      item.addEventListener('click', () => {
         const target = document.getElementById(item.dataset.section);
         if (!target) return;
         if (window.__lenis) {
-          window.__lenis.scrollTo(target, { offset: -56, duration: 1.2 });
+          window.__lenis.scrollTo(target, { offset: -20, duration: 1.2 });
         } else {
           target.scrollIntoView({ behavior: 'smooth' });
         }
       });
+    });
+
+    // Mobile: tap to show tooltip, auto-dismiss after 1500ms
+    dotnavItems.forEach(item => {
+      let tipTimer = null;
+      item.addEventListener('touchstart', e => {
+        e.preventDefault();
+        dotnavItems.forEach(i => i.classList.remove('dotnav-tip-show'));
+        item.classList.add('dotnav-tip-show');
+        clearTimeout(tipTimer);
+        tipTimer = setTimeout(() => item.classList.remove('dotnav-tip-show'), 1500);
+      }, { passive: false });
     });
 
   });
