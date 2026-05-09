@@ -623,14 +623,92 @@
       .calc-radio-pill { text-align: center; }
       .calc-total-wrap { flex-direction: column; align-items: flex-start; }
     }
+
+    /* ══════════════════════════════════════════
+       STICKY NAV BAR
+    ══════════════════════════════════════════ */
+    .snav-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 48px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #1a1a1a;
+      z-index: 9998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .snav-bar.snav-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .snav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .snav-inner::-webkit-scrollbar { display: none; }
+    .snav-item {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #555;
+      text-decoration: none;
+      padding: 0 16px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 0.15s ease;
+    }
+    .snav-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: #00d4ff;
+      border-radius: 1px;
+      transition: width 0.15s ease;
+    }
+    .snav-item.snav-active { color: #00d4ff; }
+    .snav-item.snav-active::after { width: 20px; }
+    @media (max-width: 767px) {
+      .snav-inner { justify-content: flex-start; }
+      .snav-item { font-size: 8px; padding: 0 12px; }
+    }
   </style>
 </head>
 <body class="antialiased">
 
+  <!-- STICKY NAV -->
+  <nav class="snav-bar" id="snav" aria-label="Section navigation">
+    <div class="snav-inner">
+      <a class="snav-item" href="#section-01" data-section="section-01">01 · Overview</a>
+      <a class="snav-item" href="#section-02" data-section="section-02">02 · Market Proof</a>
+      <a class="snav-item" href="#section-03" data-section="section-03">03 · Our Approach</a>
+      <a class="snav-item" href="#section-04" data-section="section-04">04 · Location</a>
+      <a class="snav-item" href="#section-05" data-section="section-05">05 · Packages</a>
+      <a class="snav-item" href="#section-06" data-section="section-06">06 · Add-ons</a>
+    </div>
+  </nav>
+
   <!-- ═══════════════════════════════════════════
        HERO SECTION
   ══════════════════════════════════════════════ -->
-  <section class="hero-bg relative min-h-screen flex flex-col justify-center items-center text-center px-6 py-24 overflow-hidden">
+  <section class="hero-bg relative min-h-screen flex flex-col justify-center items-center text-center px-6 py-24 overflow-hidden" id="section-hero">
     <!-- Scanline -->
     <div class="scanline"></div>
 
@@ -693,7 +771,7 @@
   <!-- ═══════════════════════════════════════════
        PROJECT OVERVIEW
   ══════════════════════════════════════════════ -->
-  <section class="py-24 px-6 max-w-6xl mx-auto">
+  <section class="py-24 px-6 max-w-6xl mx-auto" id="section-01">
     <div class="section-label split-label mb-3">01 — Project Overview</div>
     <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">The World of MARQUISE</h2>
     <div class="divider w-16 my-6"></div>
@@ -744,7 +822,7 @@
   <!-- ═══════════════════════════════════════════
        MARKET PROOF
   ══════════════════════════════════════════════ -->
-  <section class="py-24 px-6 max-w-6xl mx-auto">
+  <section class="py-24 px-6 max-w-6xl mx-auto" id="section-02">
     <div class="section-label split-label mb-3">02 — Market Proof & Inspiration</div>
     <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">What Fans Expect</h2>
     <p class="text-metal text-sm mb-8">Insights from KATSEYE & YUPP! Trainee Debut Live references</p>
@@ -876,7 +954,7 @@
   <!-- ═══════════════════════════════════════════
        OUR APPROACH
   ══════════════════════════════════════════════ -->
-  <section class="py-24 px-6 max-w-6xl mx-auto">
+  <section class="py-24 px-6 max-w-6xl mx-auto" id="section-03">
     <div class="section-label split-label mb-3">03 — Our Approach</div>
     <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">Bridging Intimacy and Quality</h2>
     <p class="text-metal text-sm mb-10">Bridging insight to execution — our production is built around 3 core pillars, ensuring MARQUISE's debut is delivered to perfection.</p>
@@ -928,7 +1006,7 @@
   <!-- ═══════════════════════════════════════════
        STUDIO ADVANTAGE
   ══════════════════════════════════════════════ -->
-  <section class="py-24 px-6 max-w-6xl mx-auto">
+  <section class="py-24 px-6 max-w-6xl mx-auto" id="section-04">
     <div class="section-label split-label mb-3">04 — Live Location</div>
     <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">YUPP! Studio</h2>
     <p class="text-metal text-sm mb-10">The venue for MARQUISE's Debut Live Stream</p>
@@ -996,7 +1074,7 @@
   <!-- ═══════════════════════════════════════════
        TECHNICAL SOLUTIONS
   ══════════════════════════════════════════════ -->
-  <section class="py-24 px-6 max-w-6xl mx-auto">
+  <section class="py-24 px-6 max-w-6xl mx-auto" id="section-05">
     <div class="section-label split-label mb-3">05 — Technical Solutions</div>
     <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">Choose Your Package</h2>
     <p class="text-metal text-sm mb-6">3 production tiers — matched to your budget and broadcast ambitions.</p>
@@ -1448,7 +1526,7 @@
   <!-- ═══════════════════════════════════════════
        ADD-ON SERVICES
   ══════════════════════════════════════════════ -->
-  <section class="py-24 px-6 max-w-6xl mx-auto">
+  <section class="py-24 px-6 max-w-6xl mx-auto" id="section-06">
     <div class="section-label split-label mb-3">06 — Add-on Services</div>
     <h2 class="gsap-heading text-3xl md:text-4xl font-bold text-white mb-2" style="letter-spacing:-0.02em;">Elevate Your Broadcast</h2>
     <p class="text-metal text-sm mb-10">Optional upgrades — selected based on your goals and broadcast ambitions.</p>
@@ -1838,6 +1916,51 @@
           });
         });
       }, 1200);
+    });
+
+    // ══════════════════════════════════════════
+    // 17. STICKY NAV — visibility + active tracking
+    // ══════════════════════════════════════════
+    const snav = document.getElementById('snav');
+    const snavItems = document.querySelectorAll('.snav-item');
+
+    // Show nav when hero scrolls out of view
+    const heroEl = document.getElementById('section-hero');
+    if (heroEl && snav) {
+      new IntersectionObserver(
+        ([entry]) => snav.classList.toggle('snav-visible', !entry.isIntersecting),
+        { threshold: 0.05 }
+      ).observe(heroEl);
+    }
+
+    // Track active section — single observer for all 6 sections
+    const snavSections = ['section-01','section-02','section-03',
+                          'section-04','section-05','section-06']
+      .map(id => document.getElementById(id)).filter(Boolean);
+
+    if (snavSections.length && snavItems.length) {
+      let currentId = null;
+      const sectionObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) currentId = entry.target.id; });
+        snavItems.forEach(item =>
+          item.classList.toggle('snav-active', item.dataset.section === currentId)
+        );
+      }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+      snavSections.forEach(el => sectionObs.observe(el));
+    }
+
+    // Smooth scroll via Lenis on nav click
+    snavItems.forEach(item => {
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(item.dataset.section);
+        if (!target) return;
+        if (window.__lenis) {
+          window.__lenis.scrollTo(target, { offset: -56, duration: 1.2 });
+        } else {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
     });
 
   });
